@@ -12,46 +12,6 @@
 
 #include "../includes/minirt.h"
 
-size_t	ft_strlen(const char *s) //borrar
-{
-	size_t	count;
-
-	count = 0;
-	while (s[count])
-		count++;
-	return (count);
-}
-
-void	ft_putstr_fd(char *s, int fd)//borrar
-{
-	if (!s)
-		return ;
-	else
-		write(fd, s, ft_strlen(s));
-}
-
-void	ft_putendl_fd(char *s, int fd)//borrar
-{
-	ft_putstr_fd(s, fd);
-	write(fd, "\n", 1);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n) //BORRAR
-{
-	size_t			i;
-	unsigned char	*ptr1;
-	unsigned char	*ptr2;
-
-	ptr1 = (unsigned char *)s1;
-	ptr2 = (unsigned char *)s2;
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (ptr1[i] == ptr2[i] && (ptr1[i] || ptr2[i]) && i < n - 1)
-		i++;
-	return (ptr1[i] - ptr2[i]);
-}
-
 //es necesario hacer este chequeo?? o simplemente con que no funcione el open estamos?
 //chequeo de si el argv[1] que es el nombre del file, sea .rt. sino 
 //ft_strncmp returns 1 if coincidence
@@ -65,7 +25,19 @@ int check_extension (char *file) //se puede pooner en otro file
 
 void init_data(t_data *data)
 {
-	//aca para cada elemento de la estructura general, vamos a asignar malloc e iniciarlo en NULL
+	
+	//data->light = NULL;
+	//data->amb = NULL;
+	//data->cam = NULL;
+	
+	data->light = malloc(sizeof(t_light));
+	data->amb = malloc(sizeof(t_ambient));
+	data->cam = malloc(sizeof(t_camera));
+	if(!data->light || !data->amb || !data->cam)
+		handle_error(data, 1);
+	data->light->q = 0;
+	data->amb->q = 0;
+	data->cam->q = 0;
 }
 
 int main (int ac, char **av)
@@ -80,9 +52,13 @@ int main (int ac, char **av)
 	if(!data)
 		return(ft_putendl_fd("Failed to allocate memory for data", 2), 1);
 	
-	init_data(data); //TO DO
-	parser(av[1], data); //TO DO
-	lauch_mlx(data); //TO DO
+	init_data(data);
+	parser(av[1], data);
+	//lauch_mlx(data); //TO DO
 	
 	return(0);
 }
+
+/*
+cc -Wall -Wextra -Werror -I ./includes -I ./libft/includes -I /usr/include/readline main.c ./parser/parser.c ./error/error.c ./utils/utils.c -L ../libft -lft -L /usr/lib -lreadline -o test
+*/

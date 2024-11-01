@@ -12,47 +12,90 @@
 
 #include "../../includes/minirt.h"
 
-void ft_checks (char **array)
-{
-	//check ambient_ratio
-	//check amblight_input
-	//si algo falla llama a la funcion handle_error
+// void print_string_array(char **array) //borrar
+// {
+//     int i = 0;
 
-}
+//     // Recorrer el array hasta encontrar un NULL
+//     printf("\nARRAY\n");
+//     while (array[i] != NULL)
+//     {
+//         printf("String %d: %s\n", i + 1, array[i]);
+//         i++;
+//     }
+// }
+
+// void ft_check(char **array)
+// {
+// 	(void)array; //borrar
+// 	//check ambient_ratio
+// 	//check amblight_input
+// 	//si algo falla llama a la funcion handle_error
+
+// }
 
 //la parte del parcing que va a ser general a todos los elementos
-void parsing (char *line, t_data *data)
+void parsing(char *line, t_data *data)
 {
 	char **array;
+	(void)data; //borrar
 	
-	normalize_whitespace(line); //TODO
+	normalize_whitespace(line);
 	array = ft_split(line, ' ');
-	ft_check(array);
-	rm_whitespace(array); //TODO
-
+	//ft_check(array); //TODO
+	if (line[0] == '\n' || line[0] == '#')
+		return ;
+		
 	//aca llamamos a cada parser en particular y como argumento enviamos el array
-	//dentro de cada una de estas funciones vamos a hacer el free array de cualquer NUEVO array que usemos
+	//dentro de cada una de estas funciones vamos a hacer SOLO free array de cualquer NUEVO array que usemos
+	if(line[0] == 'A')
+		
+	if(line[0] == 'L')
 	
+	if(line[0] == 'C')
 	
-	ft_free_array(array); //esta en tu lbft migue
+	if(line[0] == 'sp')
+	
+	if(line[0] == 'pl')
+	
+	if(line[0] == 'cy')
+
+	ft_free_array(array); //libera al final luego de haber asignado todos los elementos de la linea, y vuele al while loop
 }
 
+void read_lines(int fd, t_data *data)
+{
+	char *line;
+	
+	while(1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break;
+		if(line[0] == 'A')
+			data->amb->q++;	
+		if(line[0] == 'L')
+			data->light->q++;
+		if(line[0] == 'C')
+			data->cam->q++;
+		parsing(line, data);
+		free(line);
+	}
+}
 
-// funcion con el GNL TODOOOO
-
-
-
-int parser (char *file, t_data *data)
+int parser(char *file, t_data *data)
 {
 	int fd;
 	
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		handle_error(data, 0); //0 es el primero???
-		
-	//aca vendria una funcion con el get next line, 
-	//donde va a a hacer chequeos y va aterminar llamando a la bendita funcion parsing
-	
+		handle_error(data, 0); //0 es el primero??? si no, sumarle 1 a todos
+	read_lines(fd, data); 
+	if (data->amb->q != 1 || data->light->q != 1 || data->cam->q != 1)
+	{
+		close (fd);
+		handle_error(data, 2);
+	}
 	close (fd);
 	return(0);
 }
