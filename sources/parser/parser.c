@@ -49,9 +49,9 @@ void parsing(char *line, t_data *data)
 	//aca llamamos a cada parser en particular y como argumento enviamos el array
 	//dentro de cada una de estas funciones vamos a hacer SOLO free array de cualquer NUEVO array que usemos
 	if(line[0] == 'A')
-		
+		printf("ES A\n");//borrar
 	if(line[0] == 'L')
-	
+		printf("ES L\n");//borrar
 	if(line[0] == 'C')
 	
 	if(line[0] == 'sp')
