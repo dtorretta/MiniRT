@@ -42,24 +42,24 @@ void parsing(char *line, t_data *data)
 	
 	normalize_whitespace(line);
 	array = ft_split(line, ' ');
-	//ft_check(array); //TODO
+	//ft_check(array); //TODO  puede ser que en verdad no haya nada que chequear aca, y se deba chequear dentro de cada funcion
 	if (line[0] == '\n' || line[0] == '#')
 		return ;
 		
 	//aca llamamos a cada parser en particular y como argumento enviamos el array
 	//dentro de cada una de estas funciones vamos a hacer SOLO free array de cualquer NUEVO array que usemos
 	if(line[0] == 'A')
-		printf("ES A\n");//borrar
+		parse_ambient(array, data);
 	if(line[0] == 'L')
-		printf("ES L\n");//borrar
+		parse_light(array, data);
 	if(line[0] == 'C')
-	
-	if(line[0] == 'sp')
-	
-	if(line[0] == 'pl')
-	
-	if(line[0] == 'cy')
-
+		//TODO
+	if(!ft_strncmp(line, 'sp', 2))
+		parse_sphere(array, data);
+	if(!ft_strncmp(line, 'pl', 2))
+		//TODO
+	if(!ft_strncmp(line, 'cy', 2))
+		//TODO
 	ft_free_array(array); //libera al final luego de haber asignado todos los elementos de la linea, y vuele al while loop
 }
 

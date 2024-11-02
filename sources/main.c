@@ -23,16 +23,21 @@ int check_extension (char *file) //se puede pooner en otro file
 	return(ft_strncmp(file + len, ".rt", 3));	
 }
 
+//al final si es necesario proimer incializarlo en null y despues asignarle malloc
 void init_data(t_data *data)
 {
-	
-	//data->light = NULL;
-	//data->amb = NULL;
-	//data->cam = NULL;
-	
+	data->light = NULL;
+	data->amb = NULL;
+	data->cam = NULL;
+	data->sp = NULL;
+	data->pl = NULL;
+	data->cy = NULL;	
 	data->light = malloc(sizeof(t_light));
 	data->amb = malloc(sizeof(t_ambient));
 	data->cam = malloc(sizeof(t_camera));
+	//data->sp = malloc(sizeof(t_sphere)); //NO LO PODEMOS PONER ACA PORQUE LINKED LIST
+	//data->pl = malloc(sizeof(t_plane)); //USAR MALLOC DIRECTO EN LA FUNCION PORQUE
+	//data->cy = malloc(sizeof(t_cylinder)); //HAY QUE CREAR NODOS
 	if(!data->light || !data->amb || !data->cam)
 		handle_error(data, 1);
 	data->light->q = 0;
