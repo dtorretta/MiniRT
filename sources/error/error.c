@@ -12,7 +12,6 @@
 
 #include "../../includes/minirt.h"
 
-/*Hacemos un free*/
 int	handle_error(t_data *data, int error)
 {
 	//(void)data; //borrar
@@ -28,10 +27,24 @@ int	handle_error(t_data *data, int error)
 		"Error: invalid x,y,z coordinates\n" // 7
 		"Error: wrong sphere's paramenters\n" // 8
 		"Error: Invalid diameter\n" // 9
-		"Error: Failed connecting to MLX\n", // 10
-		"Error: Failed creating window\n" // 11
-		"Error: Failed creating image\n" // 12
-		"Error: Failed receiving image information" // 13
+		"Error: wrong camera's parameters\n", // 10
+	};
+
+	message = error_message[error];
+	ft_putstr_fd(message, 2);
+	free_memory(data);
+	return (EXIT_FAILURE);
+}
+
+
+int	handle_error2(t_data *data, int error)
+{
+	const char	*message;
+	const char	*error_message[] = {
+		"Error: Failed connecting to MLX\n", // 0
+		"Error: Failed creating window\n" // 1
+		"Error: Failed creating image\n" // 2
+		"Error: Failed receiving image information" // 3
 	};
 
 	message = error_message[error];

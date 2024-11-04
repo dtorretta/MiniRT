@@ -20,7 +20,11 @@
 
 static void	checks(char **array, t_data *data)
 {
-	if (array[0][1] || !array[1] || !array[2] || !array[3])
+	if (array[0][1] || !array[1] || !array[2] || !array[3] || array[4])
+	{
+		ft_free_array(array);
+		handle_error(data, 10);
+	}
 }
 
 void	parse_camera(char **array, t_data *data)

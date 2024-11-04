@@ -121,6 +121,7 @@ typedef struct s_data
 
 /*Error Funtions*/
 int		handle_error(t_data *data, int error);
+int		handle_error2(t_data *data, int error);
 
 /*Parser Functions*/
 int		parser(char *file, t_data *data);

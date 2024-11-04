@@ -6,7 +6,7 @@
 /*   By: miguandr <miguandr@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/04 19:53:23 by miguandr         ###   ########.fr       */
+/*   Updated: 2024/11/04 21:19:17 by miguandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ static void	init_mlx(t_data *data)
 {
 	data->mlx->mlx = mlx_init();
 	if (!data->mlx->mlx)
-		handle_error(data, 10);
+		handle_error2(data, 0);
 	data->mlx->window = mlx_new_window(data->mlx->mlx, WIDTH, HEIGHT, "MiniRT");
 	if (!data->mlx->window)
-		handle_error(data, 11);
+		handle_error2(data, 1);
 	data->mlx->img = mlx_new_image(data->mlx->mlx, WIDTH, HEIGHT);
 	if (!data->mlx->img)
-		handle_error(data, 12);
+		handle_error2(data, 2);
 	data->mlx->address = mlx_get_data_addr(data->mlx->img, &data->mlx->bitpp,
 			&data->mlx->line_lenght, &data->mlx->endian);
 	if (!data->mlx->address)
-		handle_error(data, 13);
+		handle_error2(data, 3);
 }
 
 void	render(t_data *data)
