@@ -82,7 +82,9 @@ typedef struct s_sphere
 /*Plane Structure*/
 typedef struct s_plane
 {
-	//TODO
+	t_vector        origin;
+	t_vector        norm;
+	t_color			color;
 	struct s_sphere	*next;
 }					t_plane;
 
