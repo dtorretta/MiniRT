@@ -1,0 +1,4 @@
+MAKEFILE: agregar el if para la libreria de mlx
+camera: agregar funcion del check erctor
+        revisar coments
+        actualizar el handle error

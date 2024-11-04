@@ -38,16 +38,12 @@
 void	parsing(char *line, t_data *data)
 {
 	char	**array;
-	(void)data; //borrar
 
 	normalize_whitespace(line);
 	array = ft_split(line, ' ');
 	//ft_check(array); //TODO  puede ser que en verdad no haya nada que chequear aca, y se deba chequear dentro de cada funcion
 	if (line[0] == '\n' || line[0] == '#')
 		return ;
-
-	//aca llamamos a cada parser en particular y como argumento enviamos el array
-	//dentro de cada una de estas funciones vamos a hacer SOLO free array de cualquer NUEVO array que usemos
 	if (line[0] == 'A')
 		parse_ambient(array, data);
 	if (line[0] == 'L')
@@ -66,7 +62,6 @@ void	parsing(char *line, t_data *data)
 void	read_lines(int fd, t_data *data)
 {
 	char	*line;
-
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -89,7 +84,7 @@ int	parser(char *file, t_data *data)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		handle_error(data, 0); //0 es el primero??? si, 0 es el primero :)
+		handle_error(data, 0);
 	read_lines(fd, data);
 	if (data->amb->q != 1 || data->light->q != 1 || data->cam->q != 1)
 	{

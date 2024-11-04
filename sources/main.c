@@ -26,19 +26,17 @@ int	check_extension(char *file) //se puede pooner en otro file
 //al final si es necesario primero incializarlo en null y despues asignarle malloc
 void	init_data(t_data *data)
 {
-	data->light = NULL;
-	data->amb = NULL;
-	data->cam = NULL;
+	//data->light = NULL;
+	//data->amb = NULL;
+	//data->cam = NULL;
 	data->sp = NULL;
 	data->pl = NULL;
 	data->cy = NULL;
+	//data->mlx = NULL;
 	data->light = malloc(sizeof(t_light));
 	data->amb = malloc(sizeof(t_ambient));
 	data->cam = malloc(sizeof(t_camera));
-	data->mlx = malloc(sizeof(t_data));
-	//data->sp = malloc(sizeof(t_sphere)); //NO LO PODEMOS PONER ACA PORQUE LINKED LIST
-	//data->pl = malloc(sizeof(t_plane)); //USAR MALLOC DIRECTO EN LA FUNCION PORQUE
-	//data->cy = malloc(sizeof(t_cylinder)); //HAY QUE CREAR NODOS
+	data->mlx = malloc(sizeof(t_mlx));
 	if (!data->light || !data->amb || !data->cam || !data->mlx)
 		handle_error(data, 1);
 	data->light->q = 0;
@@ -57,7 +55,6 @@ int	main(int ac, char **av)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (ft_putendl_fd("Failed to allocate memory for data", 2), 1);
-
 	init_data(data);
 	parser(av[1], data);
 	render(data);
