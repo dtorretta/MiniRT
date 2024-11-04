@@ -43,3 +43,24 @@ void	normalize_whitespace(char *str)
 }
 
 
+void	free_memory(t_data *data)
+{
+	if (!data)
+		return ;
+	free(data->amb);
+	free(data->cam);
+	free(data->light);
+
+	if (data->mlx)
+	{
+		if (data->mlx->img)
+			mlx_destroy_image(data->mlx->mlx, data->mlx->img);
+		if (data->mlx->window)
+			mlx_destroy_window(data->mlx->mlx, data->mlx->window);
+		//if (data->mlx->mlx)
+		//	mlx_destroy_display(data->mlx->mlx);
+		free(data->mlx->mlx);
+		free(data->mlx);
+	}
+	free(data);
+}

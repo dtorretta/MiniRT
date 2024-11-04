@@ -117,17 +117,20 @@ typedef struct s_data
 	t_cylinder	*cy;
 }					t_data;
 
+/*Error Funtions*/
+int		handle_error(t_data *data, int error);
 
-int	handle_error(t_data *data, int error);
-int parser (char *file, t_data *data);
-void normalize_whitespace(char *str);
+/*Parser Functions*/
+int		parser(char *file, t_data *data);
+void	parse_ambient(char **array, t_data *data);
+void	parse_light(char **array, t_data *data);
+void	parse_sphere(char **array, t_data *data);
 
+/*Render functions*/
+void	render(t_data *data);
 
-void parse_ambient(char **array, t_data *data);
-void parse_light(char **array, t_data *data);
-
-void parse_sphere(char **array, t_data *data);
-
-void	ft_render(t_data *data)
+/*Utils Functions*/
+void	normalize_whitespace(char *str);
+void	free_memory(t_data *data);
 
 #endif

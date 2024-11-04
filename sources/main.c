@@ -35,10 +35,11 @@ void	init_data(t_data *data)
 	data->light = malloc(sizeof(t_light));
 	data->amb = malloc(sizeof(t_ambient));
 	data->cam = malloc(sizeof(t_camera));
+	data->mlx = malloc(sizeof(t_data));
 	//data->sp = malloc(sizeof(t_sphere)); //NO LO PODEMOS PONER ACA PORQUE LINKED LIST
 	//data->pl = malloc(sizeof(t_plane)); //USAR MALLOC DIRECTO EN LA FUNCION PORQUE
 	//data->cy = malloc(sizeof(t_cylinder)); //HAY QUE CREAR NODOS
-	if (!data->light || !data->amb || !data->cam)
+	if (!data->light || !data->amb || !data->cam || !data->mlx)
 		handle_error(data, 1);
 	data->light->q = 0;
 	data->amb->q = 0;
@@ -59,7 +60,7 @@ int	main(int ac, char **av)
 
 	init_data(data);
 	parser(av[1], data);
-	ft_render(data);
+	render(data);
 
 	return (0);
 }

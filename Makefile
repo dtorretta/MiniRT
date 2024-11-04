@@ -28,7 +28,7 @@ INC	=	-I ./includes/\
 
 # Source files
 SRC_DIR	=	sources/
-SRC_SUBDIRS =	$(shell find $(SRC_DIR) -type d)
+#SRC_SUBDIRS =	$(shell find $(SRC_DIR) -type d)
 SRC		=	$(SRC_DIR)/error/error.c \
 			$(SRC_DIR)/parser/ambient.c \
 			$(SRC_DIR)/parser/camera.c \
@@ -49,7 +49,7 @@ OBJ		= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 all:			$(MLX) $(LIBFT) $(NAME)
 
 # Compile object files from source files
-$(OBJ_DIR)%.o:	$(SRC_DIR)%.c | $(OBJ_DIR)
+$(OBJ_DIR)%.o:	$(SRC_DIR)%.c
 				@mkdir -p $(dir $@)
 				@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
 
@@ -67,7 +67,7 @@ $(LIBFT):
 
 $(NAME):		$(OBJ)
 				@echo "Compiling MiniRT..."
-				@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX) $(LIBFT) $(INC) $(LIBS)
+				@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(MLX) $(LIBFT) $(INC) $(LIBS)
 				@echo "MiniRT ready."
 
 clean:

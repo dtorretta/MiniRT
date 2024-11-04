@@ -26,7 +26,7 @@ int	check_origin(char **array)
 //array[0] =  only L
 //ambient array must have only 3 elements
 //valid light brightness ratio range [0.0,1.0]:
-void	checks(char **array, t_data *data)
+static void	checks(char **array, t_data *data)
 {
 	if (array[0][1] || !array[1] || !array[2] || !array[3])
 	{

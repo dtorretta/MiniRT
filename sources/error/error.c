@@ -15,7 +15,7 @@
 /*Hacemos un free*/
 int	handle_error(t_data *data, int error)
 {
-	(void)data; //borrar
+	//(void)data; //borrar
 	const char	*message;
 	const char	*error_message[] = {
 		"system error: error in fd\n", // 0
@@ -28,14 +28,14 @@ int	handle_error(t_data *data, int error)
 		"Error: invalid x,y,z coordinates\n" // 7
 		"Error: wrong sphere's paramenters\n" // 8
 		"Error: Invalid diameter\n" // 9
-		"Failed connecting to MLX\n", // 10
-		"Failed creating window\n" // 11
-		"Failed creating image\n" // 12
-		"Failed receiving image information" // 13
+		"Error: Failed connecting to MLX\n", // 10
+		"Error: Failed creating window\n" // 11
+		"Error: Failed creating image\n" // 12
+		"Error: Failed receiving image information" // 13
 	};
 
 	message = error_message[error];
 	ft_putstr_fd(message, 2);
-	//free(data);	//TO DO no tienen que liberar el array
+	free_memory(data);
 	return (EXIT_FAILURE);
 }

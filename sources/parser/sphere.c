@@ -97,7 +97,7 @@ void	parse_sphere(char **array, t_data *data)
 	origin = ft_split(array[1], ',');
 	if (check_origin(origin, rgb))
 		handle_error(data, 7);
-	set_node(array, data, rgb, origin);
+	set_node(data, array, rgb, origin);
 	ft_free_array(rgb);
 	ft_free_array(origin);
 }

@@ -52,13 +52,13 @@ void	parsing(char *line, t_data *data)
 		parse_ambient(array, data);
 	if (line[0] == 'L')
 		parse_light(array, data);
-	if (line[0] == 'C')
+	//if (line[0] == 'C')
 		//TODO
-	if (!ft_strncmp(line, 'sp', 2))
+	if (!ft_strncmp(line, "sp", 2))
 		parse_sphere(array, data);
-	if (!ft_strncmp(line, 'pl', 2))
+	//if (!ft_strncmp(line, "pl", 2))
 		//TODO
-	if (!ft_strncmp(line, 'cy', 2))
+	//if (!ft_strncmp(line, "cy", 2))
 		//TODO
 	ft_free_array(array); //libera al final luego de haber asignado todos los elementos de la linea, y vuele al while loop
 }
@@ -89,7 +89,7 @@ int	parser(char *file, t_data *data)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		handle_error(data, 0); //0 es el primero??? si no, sumarle 1 a todos
+		handle_error(data, 0); //0 es el primero??? si, 0 es el primero :)
 	read_lines(fd, data);
 	if (data->amb->q != 1 || data->light->q != 1 || data->cam->q != 1)
 	{
