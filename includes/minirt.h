@@ -67,7 +67,7 @@ typedef struct s_camera
 	int			q;
 	float		fov;
 	t_vector	origin;
-	t_vector	orientation; //direccion
+	t_vector	orientation; //direccion me entro la duda de se deberia llamarse asi o norm
 }					t_camera;
 
 /*Sphere Structure*/
@@ -83,16 +83,20 @@ typedef struct s_sphere
 typedef struct s_plane
 {
 	t_vector        origin;
-	t_vector        norm;
+	t_vector        norm; //check name
 	t_color			color;
-	struct s_sphere	*next;
+	struct s_plane	*next;
 }					t_plane;
 
 /*Cylinder Structure*/
 typedef struct s_cylinder
 {
-	//TODO
-	struct s_sphere	*next;
+	t_vector        origin;
+	t_vector        norm; //check name
+	float			diameter;
+	float			height;
+	t_color			color;
+	struct s_cylinder	*next;
 }					t_cylinder;
 
 /*MLX Structure*/
@@ -128,6 +132,13 @@ int		parser(char *file, t_data *data);
 void	parse_ambient(char **array, t_data *data);
 void	parse_light(char **array, t_data *data);
 void	parse_sphere(char **array, t_data *data);
+void	parse_camera(char **array, t_data *data);
+void	parse_plane(char **array, t_data *data);
+void	parse_cylinder(char **array, t_data *data);
+
+/*Parser Utils Functions*/
+int     check_color(char **rgb);
+int 	check_vectors(char **xyz, int flag);
 
 /*Render functions*/
 void	render(t_data *data);

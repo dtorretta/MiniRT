@@ -35,6 +35,7 @@ SRC		=	$(SRC_DIR)/error/error.c \
 			$(SRC_DIR)/parser/cylinder.c \
 			$(SRC_DIR)/parser/light.c \
 			$(SRC_DIR)/parser/parser.c \
+			$(SRC_DIR)/parser/parser_utils.c \
 			$(SRC_DIR)/parser/plane.c \
 			$(SRC_DIR)/parser/sphere.c \
 			$(SRC_DIR)/utils/utils.c \

@@ -26,8 +26,9 @@ int	handle_error(t_data *data, int error)
 		"Error: wrong light's paramenters\n" // 6
 		"Error: invalid x,y,z coordinates\n" // 7
 		"Error: wrong sphere's paramenters\n" // 8
-		"Error: Invalid diameter\n" // 9
+		"Error: Invalid diameter or height\n" // 9
 		"Error: wrong camera's parameters\n", // 10
+		"Error: invalid camera FOV\n", // 11
 	};
 
 	message = error_message[error];

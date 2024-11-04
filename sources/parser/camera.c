@@ -17,21 +17,7 @@
 ∗array[2]: 3d normalized orientation vector. In range [-1,1] for each x,y,z axis:
 0.0,0.0,1.0
 ∗array[3]: FOV : Horizontal field of view in degrees in range [0,180]: 70*/
-
-/*!!!!!!AGREGAR FUNCION CHECK_VECTORS!!!!!!*/
-static int	check_camera(char **view, char **vector)
-{
-	if (!view[0] || !view[1] || !view[2] || view[3])
-		return (1);
-	if (!vector[0] || !vector[1] || !vector[2] || vector[3])
-		return (1);
-	if (atof(vector[0]) < -1 || atof(vector[0]) > 1 || atof(vector[1]) < -1
-		|| atof(vector[1]) > 1 || atof(vector[2]) < -1 || atof(vector[2]) > 1)
-		return (1);
-	return (0);
-}
-
-static void	checks(char **array, t_data *data)
+static void	check_parameters(char **array, t_data *data)
 {
 	if (array[0][1] || !array[1] || !array[2] || !array[3] || array[4])
 	{
@@ -41,25 +27,24 @@ static void	checks(char **array, t_data *data)
 	if (atof(array[3]) < 0 || atof(array[3]) > 180)
 	{
 		ft_free_array(array);
-		handle_error(data, 11); // agregar a handle_error: "invalid camera FOV\n"
+		handle_error(data, 11);
 	}
 }
 
-/*AGREGAR AL HEADER!!!!!!!!!!*/
 void	parse_camera(char **array, t_data *data)
 {
 	char	**view;
 	char	**vector;
-
-	checks(array, data);
+	check_parameters(array, data);
 	view = ft_split(array[1], ',');
 	vector = ft_split(array[2], ',');
-	if (check_camera(view, vector))
+	if (check_vectors(view, 0) || check_vectors(vector, 1))
 	{
-		ft_free_array(view);
-		ft_free_array(vector);
+		//ft_free_array(view); //ya se libera dentro de check_vectors
+		//ft_free_array(vector); //ya se libera dentro de check_vectors
 		ft_free_array(array);
 		handle_error(data, 12); // agregar a handle_error: "Invalid camera view point or vector\n"
+		//dani: yo para este error les estaba dejando uno mas general "Error: invalid x,y,z coordinates\n" // 7
 	}
 	data->cam->origin.x = atof(view[0]);
 	data->cam->origin.y = atof(view[1]);
@@ -70,5 +55,4 @@ void	parse_camera(char **array, t_data *data)
 	data->cam->fov = atof(array[3]);
 	ft_free_array(view);
 	ft_free_array(vector);
-	ft_free_array(array);
 }

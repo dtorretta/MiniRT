@@ -15,7 +15,6 @@
 static void	set_node(t_data *data, char **array, char **rgb, char **origin)
 {
 	t_sphere	*new_node;
-	t_sphere	*temp;
 
 	new_node = malloc(sizeof(t_sphere));
 	if (!new_node)
@@ -28,13 +27,14 @@ static void	set_node(t_data *data, char **array, char **rgb, char **origin)
 	new_node->color.g = ft_atoi(rgb[1]);
 	new_node->color.b = ft_atoi(rgb[2]);
 	if (!data->sp)
+	{
 		data->sp = new_node;
+		data->sp->next = NULL;
+	}
 	else
 	{
-		temp = data->sp;
-		while (temp->next)
-			temp = temp->next;
-		temp->next = new_node;
+		new_node->next = data->sp;
+		data->sp = new_node;
 	}
 }
 
@@ -68,7 +68,7 @@ void	parse_sphere(char **array, t_data *data)
 		handle_error(data, 4);
 	}
 	origin = ft_split(array[1], ',');
-	if (check_vectors(origin))
+	if (check_vectors(origin, 0))
 	{
 		ft_free_array(rgb);
 		ft_free_array(array);

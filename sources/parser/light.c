@@ -17,12 +17,12 @@
 //valid light brightness ratio range [0.0,1.0]:
 static void	check_parameters(char **array, t_data *data)
 {
-	if (array[0][1] || !array[1] || !array[2] || array[3]) //aca
+	if (array[0][1] || !array[1] || !array[2] || array[3])
 	{
 		ft_free_array(array);
 		handle_error(data, 6);
 	}
-	if (atof(array[2]) < 0 || atof(array[2]) > 1) //aca
+	if (atof(array[2]) < 0 || atof(array[2]) > 1)
 	{
 		ft_free_array(array);
 		handle_error(data, 3);
@@ -35,7 +35,7 @@ void	parse_light(char **array, t_data *data)
 	
 	check_parameters(array, data);
 	origin = ft_split(array[1], ',');
-	if (check_vectors(origin))
+	if (check_vectors(origin, 0))
 	{
 		ft_free_array(array);
 		handle_error(data, 7);

@@ -15,7 +15,6 @@
 //only can be 3 colors (RGB) and they must be [0,255];
 int	check_color(char **rgb)
 {
-	printf("check 03\n"); //borrar
 	if (!rgb[0] || !rgb[1] || !rgb[2] || rgb[3])
 	{
 		ft_free_array(rgb);
@@ -32,13 +31,21 @@ int	check_color(char **rgb)
 }
 
 //only can be 3 coordinates (x,y,z)
-int	check_vectors(char **xyz)
+int	check_vectors(char **xyz, int flag)
 {
-	printf("check 04\n"); //borrar
 	if (!xyz[0] || !xyz[1] || !xyz[2] || xyz[3])
 	{
 		ft_free_array(xyz);
 		return (1);
+	}
+	if (flag == 1)
+	{
+		if (atof(xyz[0]) < -1 || atof(xyz[0]) > 1 || atof(xyz[1]) < -1
+		|| atof(xyz[1]) > 1 || atof(xyz[2]) < -1 || atof(xyz[2]) > 1)
+		{
+			ft_free_array(xyz);
+			return (1);
+		}
 	}
 	return (0);
 }
