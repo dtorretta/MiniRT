@@ -22,14 +22,20 @@
 # include <stdbool.h>
 # include <readline/readline.h>
 
+/*-Macros-*/
+# define HEIGHT 1200
+# define WIDTH 800
+# define FINISH_EVENT 17
 
+/*Color Structure*/
 typedef struct s_color
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 }					t_color;
 
+/*Vector Structure*/
 typedef struct s_vector
 {
 	float	x;
@@ -37,56 +43,76 @@ typedef struct s_vector
 	float	z;
 }			t_vector;
 
+/*Ambient Structure*/
 typedef struct s_ambient
 {
-	int q;
-	float ratio;
-	t_color color;
+	int		q;
+	float	ratio;
+	t_color	color;
 }					t_ambient;
 
+/*Light Structure*/
 typedef struct s_light
 {
-	int q;
-	t_vector origin;
-	float ratio;
+	int			q;
+	float		ratio;
+	t_vector	origin;
 }					t_light;
 
+/*Camera Structure*/
 typedef struct s_camera
 {
-	int q;
-	t_vector origin;
-	t_vector orientation; //direccion
-	float fov;
+	int			q;
+	float		fov;
+	t_vector	origin;
+	t_vector	orientation; //direccion
 }					t_camera;
 
+/*Sphere Structure*/
 typedef struct s_sphere
 {
-	t_vector origin;
-	float diameter;
-	t_color color;
+	t_vector		origin;
+	t_color			color;
+	float			diameter;
 	struct s_sphere	*next;
 }					t_sphere;
 
+/*Plane Structure*/
 typedef struct s_plane
 {
 	//TODO
 	struct s_sphere	*next;
 }					t_plane;
 
+/*Cylinder Structure*/
 typedef struct s_cylinder
 {
 	//TODO
 	struct s_sphere	*next;
 }					t_cylinder;
 
+/*MLX Structure*/
+typedef struct s_mlx
+{
+	void		*mlx;
+	void		*window;
+	void		*img;
+	char		*address;
+	int			line_lenght;
+	int			endian;
+	int			bitpp;
+}					t_mlx;
+
+/*Data Structure*/
 typedef struct s_data
 {
-	t_ambient *amb;
-	t_light *light;
-	t_camera *cam;
-	t_sphere *sp;
-	t_plane *pl;
-	t_cylinder *cy;	
+	t_mlx		*mlx;
+	t_ambient	*amb;
+	t_light		*light;
+	t_camera	*cam;
+	t_sphere	*sp;
+	t_plane		*pl;
+	t_cylinder	*cy;
 }					t_data;
 
 

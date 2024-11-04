@@ -1,0 +1,4 @@
+- En handle_error: hacemos una function que libere todo lo que pueda ser liberado?
+no haria falta retornar un EXIT_FAILURE en handle_error porque podemos usar exit directamente en la que libere todo y le mandamos
+EXIT_FAILURE a esa como codigo de error y ya esta. Que te parece?
+Igual necesitaremos un free de todo para cuando cerremos el programa
