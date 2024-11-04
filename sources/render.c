@@ -6,13 +6,13 @@
 /*   By: miguandr <miguandr@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/04 16:33:23 by miguandr         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:00:46 by miguandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-int	keyboard_quit(int keysym, t_data *data)
+static int	keyboard_quit(int keysym, t_data *data)
 {
 	if (keysym == XK_Escape)
 	{
@@ -22,14 +22,14 @@ int	keyboard_quit(int keysym, t_data *data)
 	return (0);
 }
 
-int	mouse_quit(t_data *data)
+static int	mouse_quit(t_data *data)
 {
 	free_memory(data);
 	exit (0);
 	return (0);
 }
 
-void	mlx_init(t_data *data)
+static void	init_mlx(t_data *data)
 {
 	data->mlx->mlx = mlx_init();
 	if (!data->mlx->mlx)
@@ -48,7 +48,7 @@ void	mlx_init(t_data *data)
 
 void	ft_render(t_data *data)
 {
-	mlx_init(data);
+	init_mlx(data);
 	render_scene(); // TODO
 	mlx_put_image_to_window(data->mlx->mlx, data->mlx->window,
 		data->mlx->img, 0, 0);
