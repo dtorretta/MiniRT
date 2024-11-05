@@ -31,11 +31,13 @@ int	check_color(char **rgb)
 }
 
 //only can be 3 coordinates (x,y,z)
-int	check_vectors(char **xyz, int flag)
+//Migue: agregue otro char** para poder liberar todos los arrays necesarios en caso de que los parametros fallen
+int	check_vectors(char **xyz, char **to_free, int flag)
 {
 	if (!xyz[0] || !xyz[1] || !xyz[2] || xyz[3])
 	{
 		ft_free_array(xyz);
+		ft_free_array(to_free);
 		return (1);
 	}
 	if (flag == 1)
@@ -44,6 +46,7 @@ int	check_vectors(char **xyz, int flag)
 			|| atof(xyz[1]) > 1 || atof(xyz[2]) < -1 || atof(xyz[2]) > 1)
 		{
 			ft_free_array(xyz);
+			ft_free_array(to_free);
 			return (1);
 		}
 	}

@@ -68,10 +68,10 @@ void	parse_sphere(char **array, t_data *data)
 		handle_error(data, 4);
 	}
 	origin = ft_split(array[1], ',');
-	if (check_vectors(origin, 0))
+	if (check_vectors(origin, array, 0))
 	{
 		ft_free_array(rgb);
-		ft_free_array(array);
+		//ft_free_array(array); Migue: se libera en check_vectors
 		handle_error(data, 7);
 	}
 	set_node(data, array, rgb, origin);

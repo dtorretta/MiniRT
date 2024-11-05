@@ -81,9 +81,9 @@ void	parse_cylinder(char **array, t_data *data)
 	}
 	origin = ft_split(array[1], ',');
 	normalized = ft_split(array[2], ',');
-	if (check_vectors(origin, 0) || check_vectors(normalized, 1))
+	if (check_vectors(origin, normalized, 0)
+		|| check_vectors(normalized, origin, 1))
 	{
-		//Migue: potencial leak porque queda un array sin ser liberado
 		ft_free_array(rgb);
 		ft_free_array(array);
 		handle_error(data, 7);

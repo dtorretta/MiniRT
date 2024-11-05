@@ -138,7 +138,7 @@ void	parse_cylinder(char **array, t_data *data);
 
 /*Parser Utils Functions*/
 int		check_color(char **rgb);
-int		check_vectors(char **xyz, int flag);
+int		check_vectors(char **xyz, char **to_free, int flag);
 
 /*Render functions*/
 void	render(t_data *data);

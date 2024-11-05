@@ -35,9 +35,9 @@ void	parse_light(char **array, t_data *data)
 
 	check_parameters(array, data);
 	origin = ft_split(array[1], ',');
-	if (check_vectors(origin, 0))
+	if (check_vectors(origin, array, 0))
 	{
-		ft_free_array(array);
+		//ft_free_array(array); Migue: ya se esta liberando en check_vectors
 		handle_error(data, 7);
 	}
 	data->light->ratio = ft_atof(array[2]);

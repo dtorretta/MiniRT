@@ -34,11 +34,8 @@ void	parse_camera(char **array, t_data *data)
 	check_parameters(array, data);
 	view = ft_split(array[1], ',');
 	vector = ft_split(array[2], ',');
-	if (check_vectors(view, 0) || check_vectors(vector, 1))
+	if (check_vectors(view, vector, 0) || check_vectors(vector, view, 1))
 	{
-		//Migue: potencial leak porque queda un array sin ser liberado
-		//ft_free_array(view); //ya se libera dentro de check_vectors
-		//ft_free_array(vector); //ya se libera dentro de check_vectors
 		ft_free_array(array);
 		handle_error(data, 7);
 	}
