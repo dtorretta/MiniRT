@@ -67,7 +67,7 @@ typedef struct s_camera
 	int			q;
 	float		fov;
 	t_vector	origin;
-	t_vector	orientation; //direccion me entro la duda de se deberia llamarse asi o norm
+	t_vector	orientation; //direccion me entro la duda de se deberia llamarse asi o norm | Migue: pienso que orientation es mas explicito
 }					t_camera;
 
 /*Sphere Structure*/
@@ -82,8 +82,8 @@ typedef struct s_sphere
 /*Plane Structure*/
 typedef struct s_plane
 {
-	t_vector        origin;
-	t_vector        norm; //check name
+	t_vector		origin;
+	t_vector		norm; //check name
 	t_color			color;
 	struct s_plane	*next;
 }					t_plane;
@@ -91,11 +91,11 @@ typedef struct s_plane
 /*Cylinder Structure*/
 typedef struct s_cylinder
 {
-	t_vector        origin;
-	t_vector        norm; //check name
-	float			diameter;
-	float			height;
-	t_color			color;
+	t_vector			origin;
+	t_vector			norm; //check name
+	float				diameter;
+	float				height;
+	t_color				color;
 	struct s_cylinder	*next;
 }					t_cylinder;
 
@@ -137,8 +137,8 @@ void	parse_plane(char **array, t_data *data);
 void	parse_cylinder(char **array, t_data *data);
 
 /*Parser Utils Functions*/
-int     check_color(char **rgb);
-int 	check_vectors(char **xyz, int flag);
+int		check_color(char **rgb);
+int		check_vectors(char **xyz, int flag);
 
 /*Render functions*/
 void	render(t_data *data);

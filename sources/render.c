@@ -6,7 +6,7 @@
 /*   By: miguandr <miguandr@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/04 21:19:17 by miguandr         ###   ########.fr       */
+/*   Updated: 2024/11/05 09:58:32 by miguandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static int	keyboard_exit(int keysym, t_data *data)
 {
-	if (keysym == 0xFF1B)
+	// keysym 53 is for mac. DELETE later
+	if (keysym == 0xFF1B || keysym == 53)
 	{
 		free_memory(data);
 		exit (0);

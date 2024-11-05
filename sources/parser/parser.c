@@ -61,6 +61,7 @@ void	parsing(char *line, t_data *data)
 void	read_lines(int fd, t_data *data)
 {
 	char	*line;
+
 	while (1)
 	{
 		line = get_next_line(fd);

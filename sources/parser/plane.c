@@ -32,7 +32,7 @@ static void	set_node(t_data *data, char **rgb, char **origin, char	**norm)
 	{
 		data->pl = new_node;
 		data->pl->next = NULL;
-    }
+	}
 	else
 	{
 		new_node->next = data->pl;
@@ -69,7 +69,8 @@ void	parse_plane(char **array, t_data *data)
 	normalized = ft_split(array[2], ',');
 	if (check_vectors(origin, 0) || check_vectors(normalized, 1))
 	{
-	    ft_free_array(rgb);
+		//Migue: potencial leak porque queda un array sin ser liberado
+		ft_free_array(rgb);
 		ft_free_array(array);
 		handle_error(data, 7);
 	}

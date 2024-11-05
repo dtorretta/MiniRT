@@ -53,7 +53,8 @@ static void	set_node(t_data *data, char **rgb, char **origin, char **norm)
 //diamenter and height cant be < 0
 static void	check_parameters(char **array, t_data *data)
 {
-	if (array[0][2] || !array[1] || !array[2] || !array[3] || !array[4] || !array[5] || array[6])
+	if (array[0][2] || !array[1] || !array[2] || !array[3]
+		|| !array[4] || !array[5] || array[6])
 	{
 		ft_free_array(array);
 		handle_error(data, 8);
@@ -82,16 +83,17 @@ void	parse_cylinder(char **array, t_data *data)
 	normalized = ft_split(array[2], ',');
 	if (check_vectors(origin, 0) || check_vectors(normalized, 1))
 	{
+		//Migue: potencial leak porque queda un array sin ser liberado
 		ft_free_array(rgb);
 		ft_free_array(array);
 		handle_error(data, 7);
 	}
 	set_node(data, rgb, origin, normalized);
-	set_node2(data->cy, array); 
+	set_node2(data->cy, array);
 	ft_free_array(rgb);
 	ft_free_array(origin);
 	ft_free_array(normalized);
 }
 
 //si no tuivieramos una estructura general t_data que incluya t_cylinder, el primer parametro tendria que haber sido t_cylinder *node
-//y eso me hubeira obligado a declarar en parse_sphere la variable 
+//y eso me hubeira obligado a declarar en parse_sphere la variable

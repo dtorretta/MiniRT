@@ -41,7 +41,7 @@ int	check_vectors(char **xyz, int flag)
 	if (flag == 1)
 	{
 		if (atof(xyz[0]) < -1 || atof(xyz[0]) > 1 || atof(xyz[1]) < -1
-		|| atof(xyz[1]) > 1 || atof(xyz[2]) < -1 || atof(xyz[2]) > 1)
+			|| atof(xyz[1]) > 1 || atof(xyz[2]) < -1 || atof(xyz[2]) > 1)
 		{
 			ft_free_array(xyz);
 			return (1);

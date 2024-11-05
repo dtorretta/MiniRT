@@ -32,7 +32,7 @@ static void	check_parameters(char **array, t_data *data)
 void	parse_light(char **array, t_data *data)
 {
 	char	**origin;
-	
+
 	check_parameters(array, data);
 	origin = ft_split(array[1], ',');
 	if (check_vectors(origin, 0))
