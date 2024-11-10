@@ -163,10 +163,11 @@ int		check_vectors(char **xyz, char **to_free, int flag);
 
 /*Render functions*/
 void    render(t_data *data);
-int	mouse_exit(t_data *data);
+int mouse_exit(t_data *data);
 int	keyboard_exit(int keysym, t_data *data);
 
 /*Figures Functions*/
+t_figure render_plane(t_data *data, t_ray ray);
 
 /*Vector Utils*/
 t_vector ft_addition (t_vector *a, t_vector *b);

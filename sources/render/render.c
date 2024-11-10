@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/11 00:04:00 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/11 00:09:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void render_scene(t_data *data)
 	{
 		while (y < HEIGHT)
 		{
-			//render_pixel(x, y, data); //In progress
+			render_pixel(x, y, data);
 			y++;
 		}
 		y = 0;
