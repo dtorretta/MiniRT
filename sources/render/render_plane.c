@@ -12,6 +12,7 @@
 
 #include "../../includes/minirt.h"
 
+//t is the intersection point between the camera and the figure
 //t = [-n * (Ro - c)] / [n * d]
 //n = normal vector 
 //Ro = ray's origin (vector)
@@ -58,10 +59,11 @@ static void closest_plane(t_figure closest, t_ray ray)
 	}
 }
 
-//if the pixel intersects no plane, closest.distance will remain as INFINITY
-//therefore, no color will be asigned.
+//all this functions basically only check if the pixel hits a plane
+//if not, closest.distance remains as INFINITY and no color will be asigned
 //if it intersects with a plane, t_figure closest will store the data 
 //of the closest plane (in case there is more than 1)
+//no light or shadow are considerer here
 t_figure render_plane(t_data *data, t_ray ray)
 {
 	t_figure closest;
