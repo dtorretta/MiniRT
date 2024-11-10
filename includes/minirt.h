@@ -26,7 +26,7 @@
 # include "../minilibx/mlx.h"
 
 /*-Macros-*/
-# define HEIGHT 1200
+# define HEIGHT 800
 # define WIDTH 800
 # define FINISH_EVENT 17
 
@@ -69,6 +69,7 @@ typedef struct s_camera
 	float		fov;
 	t_vector	origin;
 	t_vector	orientation; //direccion me entro la duda de se deberia llamarse asi o norm | Migue: pienso que orientation es mas explicito
+	//dani: a los demas le deje el nombre normal ya que un normal vector por definicion es el vector perpendicular. me cuesta un pcoo en la practica entender que conio es
 }					t_camera;
 
 /*Sphere Structure*/
@@ -84,7 +85,7 @@ typedef struct s_sphere
 typedef struct s_plane
 {
 	t_vector		origin;
-	t_vector		norm; //check name
+	t_vector		normal;
 	t_color			color;
 	struct s_plane	*next;
 }					t_plane;
@@ -93,7 +94,7 @@ typedef struct s_plane
 typedef struct s_cylinder
 {
 	t_vector			origin;
-	t_vector			norm; //check name
+	t_vector			normal;
 	float				diameter;
 	float				height;
 	t_color				color;
@@ -112,6 +113,24 @@ typedef struct s_mlx
 	int			bitpp;
 }					t_mlx;
 
+typedef struct s_figure
+{
+	float		distance;
+	t_vector	intersection;
+	t_vector	normal; //ver si es necesario ya que directamnete podria tomar el normal de la figura
+	t_sphere	*sphere;
+	t_plane		*plane;
+	t_cylinder	*cylinder;
+	//int			cylinder_cap;
+}				t_figure;
+
+typedef struct s_ray
+{
+	t_vector	origin;
+	t_vector	direction;
+}			t_ray;
+
+
 /*Data Structure*/
 typedef struct s_data
 {
@@ -122,6 +141,7 @@ typedef struct s_data
 	t_sphere	*sp;
 	t_plane		*pl;
 	t_cylinder	*cy;
+	//t_figure    *figure;
 }					t_data;
 
 /*Error Funtions*/
@@ -143,6 +163,8 @@ int		check_vectors(char **xyz, char **to_free, int flag);
 
 /*Render functions*/
 void    render(t_data *data);
+int	mouse_exit(t_data *data);
+int	keyboard_exit(int keysym, t_data *data);
 
 /*Figures Functions*/
 

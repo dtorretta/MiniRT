@@ -1,0 +1,72 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vector_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/10 15:17:40 by marvin            #+#    #+#             */
+/*   Updated: 2024/11/10 15:17:40 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minirt.h"
+
+t_vector ft_addition(t_vector *a, t_vector *b)
+{
+	t_vector result;
+	
+	result.x = a->x + b->x;
+	result.y = a->y + b->y;
+	result.z = a->z + b->z;
+	return(result);
+}
+
+t_vector ft_subtraction(t_vector *a, t_vector *b)
+{
+	t_vector result;
+	
+	result.x = a->x - b->x;
+	result.y = a->y - b->y;
+	result.z = a->z - b->z;
+	return(result);
+}
+
+//el producto cruzado de dos vectores en el plano da el vector normal al plano
+//el vector nomal al plano es perpendicular al plano y define su otientacion en el espacio
+t_vector ft_cross(t_vector *a, t_vector *b)
+{
+	t_vector result;
+	
+	result.x = a->y * b->z - a->z * b->y;
+	result.y = a->z * b->x - a->x * b->z;
+	result.z = a->x * b->y - a->y * b->x;	
+	return(result);
+}
+
+//funcion to calculate the scalar of 2 vector
+float ft_dot(t_vector *a, t_vector *b)
+{
+	float result;
+	
+	result = a->x * b->x + a->y * b->y + a->z * b->z;	
+	return(result);
+}
+
+//It allows to use the vector in calculations where only the direction matters. 
+//Essentially, it is scaled down to have a length of 1 since only 
+//the graphic representation is important, not its actual size.
+t_vector ft_normalize(t_vector *a)
+{
+	//ver porque creo que al final nunca la necesitamos porque camera, plano, etc ya tienen como parametro el vector normalizado
+	//ver si se usa esta funcion en algun momento con el parametro origen
+	t_vector result;
+	float lenght;
+	
+	lenght = ft_lenght(a);	
+	result.x = a->x / lenght;
+	result.y = a->y / lenght;
+	result.z = a->z / lenght;
+	return(result);
+}
+
