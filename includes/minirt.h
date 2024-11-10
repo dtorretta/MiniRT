@@ -16,6 +16,7 @@
 # include "../libft/libft.h"
 # include <signal.h>
 # include <fcntl.h>
+# include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -141,7 +142,19 @@ int		check_color(char **rgb);
 int		check_vectors(char **xyz, char **to_free, int flag);
 
 /*Render functions*/
-void	render(t_data *data);
+void    render(t_data *data);
+
+/*Figures Functions*/
+
+/*Vector Utils*/
+t_vector ft_addition (t_vector *a, t_vector *b);
+t_vector ft_subtraction (t_vector *a, t_vector *b);
+t_vector ft_cross (t_vector *a, t_vector *b);
+float ft_dot (t_vector *a, t_vector *b);
+t_vector ft_normalize (t_vector *a);
+float ft_lenght (t_vector *a);
+t_vector ft_scale(t_vector *a, float scalar);
+t_vector	ft_perpendicular(t_vector *a, t_vector *b);
 
 /*Utils Functions*/
 void	normalize_whitespace(char *str);
