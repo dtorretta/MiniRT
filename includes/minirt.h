@@ -135,7 +135,6 @@ typedef struct s_ray
 	t_vector	direction;
 }			t_ray;
 
-
 /*Data Structure*/
 typedef struct s_data
 {
@@ -171,6 +170,7 @@ void		render(t_data *data);
 int			mouse_exit(t_data *data);
 int			keyboard_exit(int keysym, t_data *data);
 void		init_camera(t_camera *camera);
+void		generate_pixel_color(t_data *data, int x, int y, t_figure figure);
 
 /*Figures Functions*/
 t_figure	render_plane(t_data *data, t_ray ray);

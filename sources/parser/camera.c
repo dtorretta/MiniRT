@@ -42,9 +42,9 @@ void	parse_camera(char **array, t_data *data)
 	data->cam->origin.x = atof(view[0]);
 	data->cam->origin.y = atof(view[1]);
 	data->cam->origin.z = atof(view[2]);
-	data->cam->orientation.x = atof(vector[0]);
-	data->cam->orientation.y = atof(vector[1]);
-	data->cam->orientation.z = atof(vector[2]);
+	data->cam->aim.x = atof(vector[0]);
+	data->cam->aim.y = atof(vector[1]);
+	data->cam->aim.z = atof(vector[2]);
 	data->cam->fov = atof(array[3]);
 	ft_free_array(view);
 	ft_free_array(vector);

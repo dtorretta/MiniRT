@@ -6,7 +6,7 @@
 /*   By: miguandr <miguandr@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/18 14:13:27 by miguandr         ###   ########.fr       */
+/*   Updated: 2024/11/18 16:45:51 by miguandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 //closest will be the first figure the ray impact
 //if there is no figure (distance = INFINITY), there will be no color (black)
 //otherwhise we call the function to add the color to the pixel
-static void render_pixel(int x, int y, t_data *data)
+static void	trace_ray_for_pixel(int x, int y, t_data *data)
 {
-	t_figure    closest;
-	t_figure    temp;
-	t_ray       ray;
+	t_figure	closest;
+	t_figure	temp;
+	t_ray		ray;
 
 	closest.distance = INFINITY;
 	temp.distance = INFINITY;
@@ -36,7 +36,7 @@ static void render_pixel(int x, int y, t_data *data)
 	if (temp.distance < closest.distance)
 		closest = temp;
 	if (closest.distance < INFINITY)
-		//ft_color(x, y, data, closest); //TODO
+		generate_pixel_color(data, x, y, closest);
 }
 
 static void	render_scene(t_data *data)
@@ -52,7 +52,7 @@ static void	render_scene(t_data *data)
 	{
 		while (y < HEIGHT)
 		{
-			render_pixel(x, y, data);
+			trace_ray_for_pixel(x, y, data);
 			y++;
 		}
 		y = 0;
