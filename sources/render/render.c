@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/11 00:09:57 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/17 23:08:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void render_pixel(int x, int y, t_data *data)
 {
 	t_figure    closest;
 	t_figure    temp;
-	t_ray       ray; //no es pointer porque quiero que se creen todas copias distintas en cada llamada
+	t_ray       ray;
 	
 	closest.distance = INFINITY;
 	temp.distance = INFINITY;
@@ -28,7 +28,7 @@ static void render_pixel(int x, int y, t_data *data)
 	if (data->pl)
 		closest = render_plane(data, ray);
 	if (data->sp)
-		//temp = render_sphere(data, ray) //TODO
+		temp = render_sphere(data, ray);
 	if (temp.distance < closest.distance)
 		closest = temp;
 	if (data->cy)

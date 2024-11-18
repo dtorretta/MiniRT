@@ -117,7 +117,7 @@ typedef struct s_figure
 {
 	float		distance;
 	t_vector	intersection;
-	t_vector	normal; //ver si es necesario ya que directamnete podria tomar el normal de la figura
+	t_vector	normal;
 	t_sphere	*sphere;
 	t_plane		*plane;
 	t_cylinder	*cylinder;
@@ -168,6 +168,7 @@ int	keyboard_exit(int keysym, t_data *data);
 
 /*Figures Functions*/
 t_figure render_plane(t_data *data, t_ray ray);
+t_figure render_sphere(t_data *data, t_ray ray);
 
 /*Vector Utils*/
 t_vector ft_addition (t_vector *a, t_vector *b);

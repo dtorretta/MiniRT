@@ -7,18 +7,18 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:59:17 by marvin            #+#    #+#             */
 /*   Updated: 2024/11/10 21:59:17 by marvin           ###   ########.fr       */
-/*                                                                            */
+/*                               t                                             */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
-//t is the intersection point between the camera and the figure
+//t is the intersection distance between the ray and the plane
 //t = [-n * (Ro - c)] / [n * d]
 //n = normal vector 
 //Ro = ray's origin (vector)
 //c = plane's origin (vector)
 //d = ray's direction (vector)
-static int calculate_t(t_plane *plane, t_ray ray)
+static float calculate_distance(t_plane *plane, t_ray ray)
 {
 	t_vector    temp_a;
 	t_vector    temp_b;
@@ -36,24 +36,24 @@ static int calculate_t(t_plane *plane, t_ray ray)
 //Ray's distance is its direction multiplied by the distance to the closest pl
 //adding the ray's origin (camera POV) to its distance gives a
 //vector that goes from the origin to the closest plane.
-static void closest_plane(t_figure closest, t_ray ray)
+static void closest_plane(t_figure *closest, t_ray ray)
 {
 	t_plane *plane;
 	float   temp_distance;
 	t_vector ray_distance;
 	
-	plane = closest.plane;
+	plane = closest->plane;
 	while (plane)
 	{
 		//closest->normal = ft_normalize (&plane->normal); //para mi la funcion a la que llama en este punto es redundante. //tambien creo que este parametro dentro de t_figure podria no existir y tomar directamente el de T_plane
-		temp_distance = calculate_t (plane, ray);
-		if (temp_distance > 0 && temp_distance < closest.distance)
+		temp_distance = calculate_distance (plane, ray);
+		if (temp_distance >= 0 && temp_distance < closest->distance)
 		{
-			closest.distance = temp_distance;
-			closest.normal = plane->normal;
-			closest.plane = plane;
-			ray_distance = ft_scale(&ray.direction, closest.distance);
-			closest.intersection = ft_addition(&ray.origin, &ray_distance);	
+			closest->distance = temp_distance;
+			closest->normal = plane->normal;
+			closest->plane = plane;
+			ray_distance = ft_scale(&ray.direction, closest->distance);
+			closest->intersection = ft_addition(&ray.origin, &ray_distance);	
 		}
 		plane = plane->next;
 	}
@@ -71,6 +71,18 @@ t_figure render_plane(t_data *data, t_ray ray)
 	closest.distance = INFINITY;
 	closest.cylinder = NULL;
 	closest.sphere = NULL;
-	closest_plane(closest, ray);
+	closest.plane = data->pl;
+	closest_plane(&closest, ray);
 	return(closest);
 }
+
+/*
+notas para Dani:
+t_figure *closest = es necesario que sea puntero porque a lo largo de este file voy cambiando sus valores
+t_ray ray = no necesita ser puntero ya que no le voy a cambiar el valor y es una estrucutra peque;a
+t_plane *plane = necesia ser puntero porque lo que estoy haciendo es apuntar al head
+
+
+Si no añades f y usas 2.0 (que es de doble precisión), es posible que, dependiendo de cómo esté definida la variable diameter, haya una conversión implícita que haga que el resultado de la división se calcule con doble precisión (64 bits) en lugar de precisión simple (32 bits).
+
+*/

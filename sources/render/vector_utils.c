@@ -58,8 +58,6 @@ float ft_dot(t_vector *a, t_vector *b)
 //the graphic representation is important, not its actual size.
 t_vector ft_normalize(t_vector *a)
 {
-	//ver porque creo que al final nunca la necesitamos porque camera, plano, etc ya tienen como parametro el vector normalizado
-	//ver si se usa esta funcion en algun momento con el parametro origen
 	t_vector result;
 	float lenght;
 	
