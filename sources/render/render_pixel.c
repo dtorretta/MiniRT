@@ -6,7 +6,7 @@
 /*   By: miguandr <miguandr@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:21:26 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/18 19:08:47 by miguandr         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:23:56 by miguandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,18 +100,22 @@ t_color	get_object_color(t_figure figure, float diffuse, t_color ambient)
 }
 
 /**
- * Calculates and renders the color of a pixel based on lighting and object properties.
- * @data: Pointer to the main data structure containing scene and rendering information.
+ * Calculates and renders the color of a pixel based on lighting
+ * and object properties.
+ * @data: Pointer to the main data structure containing scene and
+ * rendering information.
  * @x: X-coordinate of the pixel to render.
  * @y: Y-coordinate of the pixel to render.
- * @figure: The object intersected by the ray, containing its properties and color.
+ * @figure: The object intersected by the ray, containing its properties
+ * and color.
  *
  * The function first computes the light direction vector and normalizes it. It
  * calculates the ambient lighting contribution and checks whether the object
- * is in shadow. If the object is not in shadow, the diffuse lighting is calculated.
- * The object's color is determined using `get_object_color`, and the resulting color
- * is converted to a TRGB value using `create_color`. Finally, the pixel is rendered
- * on the screen using `my_put_pixel`.
+ * is in shadow. If the object is not in shadow, the diffuse lighting
+ * is calculated.
+ * The object's color is determined using `get_object_color`, and the resulting
+ * color is converted to a TRGB value using `create_color`.
+ * Finally, the pixel is rendered on the screen using `my_put_pixel`.
  */
 void	generate_pixel_color(t_data *data, int x, int y, t_figure figure)
 {
@@ -123,15 +127,12 @@ void	generate_pixel_color(t_data *data, int x, int y, t_figure figure)
 
 	ambient_color = (t_color){0, 0, 0};
 	diffuse = 0.0f;
-	// Calculate light direction and check for shadows
 	light_direction = ft_subtraction(&data->light->origin, &figure.intersection);
 	light_direction = ft_normalize(&light_direction);
 	ft_calculate_ambient_lighting(data, &ambient_color); // TODO
 	if (!ft_is_in_shadow(data, &figure.intersection, // TODO
 			&figure.normal, &light_direction))
 		diffuse = calculate_diffuse_lighting(&figure.normal, &light_direction); //TODO
-
-	// Get final color and render pixel
 	final_color = get_object_color(figure, diffuse, ambient_color);
 	trgb = create_color(255, final_color.r, final_color.g, final_color.b);
 	my_put_pixel(data->mlx, x, y, trgb);
