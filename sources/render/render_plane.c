@@ -45,7 +45,7 @@ static void closest_plane(t_figure *closest, t_ray ray)
 	plane = closest->plane;
 	while (plane)
 	{
-		//closest->normal = ft_normalize (&plane->normal); //para mi la funcion a la que llama en este punto es redundante. //tambien creo que este parametro dentro de t_figure podria no existir y tomar directamente el de T_plane
+		//closest->normal = ft_normalize (&plane->normal); //para mi la funcion a la que llama en este punto es redundante.
 		temp_distance = calculate_distance (plane, ray);
 		if (temp_distance >= 0 && temp_distance < closest->distance)
 		{
