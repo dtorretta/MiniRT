@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miguandr <miguandr@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/18 16:45:51 by miguandr         ###   ########.fr       */
+/*   Updated: 2024/11/18 21:07:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	trace_ray_for_pixel(int x, int y, t_data *data)
 	if (temp.distance < closest.distance)
 		closest = temp;
 	if (data->cy)
-		//temp = render_cylinder(data, ray) //TODO
+		temp = render_cylinder(data, ray); //in progress
 	if (temp.distance < closest.distance)
 		closest = temp;
 	if (closest.distance < INFINITY)
