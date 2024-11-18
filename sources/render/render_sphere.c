@@ -14,20 +14,19 @@
 
 //this function calculates sqrt[discriminant]
 //the discriminant is the expression inside the square root:
-//(l * d)^2 - (l * l - r^2)
-//if (temp_b - temp_c) < 0 it means the rays doesn't intercept the sphere
-static float calculate_distance_2(float diameter, float temp_a, t_vector l)
+//√(B^2 - C)]
+//√[(l * d)^2 - (l * l - r^2)]
+//if (pow_b - C) < 0 it means the rays doesn't intercept the sphere
+static float calculate_distance_2(float diameter, t_quadratic *qdtc, t_vector l)
 {
-	float    radius;
-	float    temp_b;
-	float    temp_c;	
+	float    pow_b;
 	
-	radius = (diameter / 2.0f);
-	temp_b = (temp_a * temp_a); //(l * d)^2
-	temp_c = (ft_dot(&l, &l) - (radius * radius)); //(l * l - r^2)
-	if ((temp_b - temp_c) < 0)
+	qdtc->radius = (diameter / 2.0f);
+	pow_b = (qdtc->b * qdtc->b);
+	qdtc->c = (ft_dot(&l, &l) - (qdtc->radius * qdtc->radius));
+	if ((pow_b - qdtc->c) < 0)
 		return (INFINITY);
-	return (sqrt(temp_b - temp_c)); //sqrt[ (l * d)^2 - (l * l - r^2) ]
+	return(sqrt(pow_b - qdtc->c));
 }
 
 //t is the intersection distance between the ray and the sphere
@@ -36,9 +35,9 @@ static float calculate_distance_2(float diameter, float temp_a, t_vector l)
 //where:
 //A = d * d
 //B = 2 * L * d 
-//C = l * L - r^2
-//(we can omit the '2*' in B and in the denominator)
-//t = {-(L*d) ± √[(L*d)^2 - (L^2 - r^2)]} / {d*d}
+//C = L * L - r^2
+//after some simplifications:
+//t = {-(L*d) ± √[(L*d)^2 - (L^2 - r^2)]}
 //L = Sphere's center - ray's origin (vector)
 //d = ray's direction (vector)
 //r = sphere's ratius
@@ -46,23 +45,20 @@ static float calculate_distance_2(float diameter, float temp_a, t_vector l)
 //if temp_d is NOT >= 0, there is no interesection between the ray and the sp
 static float calculate_distance(t_sphere *sphere, t_ray ray)
 {
+	t_quadratic    *qdtc;
 	t_vector    l;
-	float       temp_a;
-	float       temp_d;
-	float       distance_a;
-	float       distance_b;
 	
 	l = ft_subtraction(&sphere->origin, &ray.origin);
-	temp_a = ft_dot(&l, &ray.direction); //(l * d)
-	temp_d = calculate_distance_2(sphere->diameter, temp_a, l);
-	if(temp_d < 0 || temp_d == INFINITY)
+	qdtc->b = ft_dot(&l, &ray.direction);
+	qdtc->square = calculate_distance_2(sphere->diameter, qdtc, l);
+	if(qdtc->square < 0 || qdtc->square == INFINITY)
 		return (INFINITY);
-	distance_a = ((-temp_a + temp_d) / ft_dot(&ray.direction, &ray.direction));
-	distance_b = ((-temp_a - temp_d) / ft_dot(&ray.direction, &ray.direction));
-	if(distance_a >= 0 && (distance_a < distance_b || distance_b <= 0))
-		return(distance_a);
-	else if (distance_b >= 0)
-		return(distance_b);
+	qdtc->dist1 = (-qdtc->b + qdtc->square);
+	qdtc->dist2 = (-qdtc->b - qdtc->square);
+	if(qdtc->dist1 >= 0 && (qdtc->dist1 < qdtc->dist2 || qdtc->dist2 <= 0))
+		return(qdtc->dist1);
+	else if (qdtc->dist2 >= 0)
+		return(qdtc->dist2);
 	else
 		return (INFINITY);
 }

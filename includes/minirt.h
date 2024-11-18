@@ -130,6 +130,16 @@ typedef struct s_ray
 	t_vector	direction;
 }			t_ray;
 
+typedef struct s_quadratic
+{
+	float		b;
+	float		c;
+	float       dist1;
+	float       dist2;
+	float       radius;
+	float       square;
+}				t_quadratic;
+
 
 /*Data Structure*/
 typedef struct s_data
