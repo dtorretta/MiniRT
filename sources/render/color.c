@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_pixel.c                                     :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miguandr <miguandr@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:21:26 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/18 19:23:56 by miguandr         ###   ########.fr       */
+/*   Updated: 2024/11/18 20:58:47 by miguandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	my_put_pixel(t_mlx *mlx, int x, int y, int color)
  * a single TRGB color value suitable for rendering.
  * @return: A 32-bit integer representing the combined TRGB color.
  */
-int	create_color(int alpha, int red, int green, int blue)
+static int	create_color(int alpha, int red, int green, int blue)
 {
 	return ((alpha & 0xFF) << 24 | (red & 0xFF) << 16
 		| (green & 0xFF) << 8 | (blue & 0xFF));
@@ -62,7 +62,8 @@ int	create_color(int alpha, int red, int green, int blue)
  * values are clamped to the maximum value of 255 to ensure valid color output.
  * @return: A t_color struct representing the final color.
  */
-t_color	calculate_color(t_color base_color, float diffuse, t_color ambient)
+static t_color	calculate_gradient(t_color base_color,
+	float diffuse, t_color ambient)
 {
 	t_color	result;
 
@@ -85,17 +86,18 @@ t_color	calculate_color(t_color base_color, float diffuse, t_color ambient)
  *
  * Based on the type of object (sphere, plane, or cylinder), the function
  * retrieves the object's base color and computes the final color using
- * `calculate_color`. If no object is specified, it returns black.
+ * `calculate_gradient`. If no object is specified, it returns black.
  * @return: A t_color struct representing the object's final color.
  */
-t_color	get_object_color(t_figure figure, float diffuse, t_color ambient)
+static t_color	get_object_color(t_figure figure,
+	float diffuse, t_color ambient)
 {
 	if (figure.sphere)
-		return (calculate_color(figure.sphere->color, diffuse, ambient));
+		return (calculate_gradient(figure.sphere->color, diffuse, ambient));
 	else if (figure.plane)
-		return (calculate_color(figure.plane->color, diffuse, ambient));
+		return (calculate_gradient(figure.plane->color, diffuse, ambient));
 	else if (figure.cylinder)
-		return (calculate_color(figure.cylinder->color, diffuse, ambient));
+		return (calculate_gradient(figure.cylinder->color, diffuse, ambient));
 	return ((t_color){0, 0, 0});
 }
 
@@ -122,18 +124,21 @@ void	generate_pixel_color(t_data *data, int x, int y, t_figure figure)
 	t_vector	light_direction;
 	t_color		ambient_color;
 	t_color		final_color;
-	float		diffuse;
+	float		diffuse_light;
 	int			trgb;
 
 	ambient_color = (t_color){0, 0, 0};
-	diffuse = 0.0f;
-	light_direction = ft_subtraction(&data->light->origin, &figure.intersection);
+	diffuse_light = 0.0f;
+	light_direction = ft_subtraction(&data->light->origin,
+			&figure.intersection);
 	light_direction = ft_normalize(&light_direction);
-	ft_calculate_ambient_lighting(data, &ambient_color); // TODO
-	if (!ft_is_in_shadow(data, &figure.intersection, // TODO
+	ambient_color.r += (int)(data->amb->color.r * data->amb->ratio);
+	ambient_color.g += (int)(data->amb->color.g * data->amb->ratio);
+	ambient_color.b += (int)(data->amb->color.b * data->amb->ratio);
+	if (!check_shadow(data, &figure.intersection,
 			&figure.normal, &light_direction))
-		diffuse = calculate_diffuse_lighting(&figure.normal, &light_direction); //TODO
-	final_color = get_object_color(figure, diffuse, ambient_color);
+		diffuse_light = fmaxf(0.0f, ft_dot(&figure.normal, &light_direction));
+	final_color = get_object_color(figure, diffuse_light, ambient_color);
 	trgb = create_color(255, final_color.r, final_color.g, final_color.b);
 	my_put_pixel(data->mlx, x, y, trgb);
 }

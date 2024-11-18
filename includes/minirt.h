@@ -170,11 +170,16 @@ void		render(t_data *data);
 int			mouse_exit(t_data *data);
 int			keyboard_exit(int keysym, t_data *data);
 void		init_camera(t_camera *camera);
+
+/*Color Funtions & Utils*/
 void		generate_pixel_color(t_data *data, int x, int y, t_figure figure);
+int			check_shadow(t_data *data, t_vector *point,
+				t_vector *normal, t_vector *light_direction);
 
 /*Figures Functions*/
 t_figure	render_plane(t_data *data, t_ray ray);
 t_figure	render_sphere(t_data *data, t_ray ray);
+t_figure	render_cylinder(t_data *data, t_ray ray);
 
 /*Vector Utils*/
 t_vector	ft_addition(t_vector *a, t_vector *b);
