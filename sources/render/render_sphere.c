@@ -43,7 +43,7 @@ static float calculate_distance_2(float diameter, t_quadratic *qdtc, t_vector l)
 //r = sphere's ratius
 //± means there are 2 possible interesctions. we will return the closets.
 //if temp_d is NOT >= 0, there is no interesection between the ray and the sp
-static float calculate_distance(t_sphere *sphere, t_ray ray)
+static float	calculate_distance(t_sphere *sphere, t_ray ray)
 {
 	t_quadratic    *qdtc;
 	t_vector    l;
@@ -63,16 +63,16 @@ static float calculate_distance(t_sphere *sphere, t_ray ray)
 		return (INFINITY);
 }
 
-//Ray's direction is a vector nomalized at 1. 
+//Ray's direction is a vector nomalized at 1.
 //Ray's distance is its direction multiplied by the distance to the closest sp
 //adding the ray's origin (camera POV) to its distance gives a
 //vector that goes from the origin to the closest sphere.
-static void closest_sphere(t_figure *closest, t_ray ray)
+static void	closest_sphere(t_figure *closest, t_ray ray)
 {
-	t_sphere *sphere;
-	float   temp_distance;
-	t_vector ray_distance;
-	
+	t_sphere	*sphere;
+	float		temp_distance;
+	t_vector	ray_distance;
+
 	sphere = closest->sphere;
 	while (sphere)
 	{
@@ -82,8 +82,9 @@ static void closest_sphere(t_figure *closest, t_ray ray)
 			closest->distance = temp_distance;
 			closest->sphere = sphere;
 			ray_distance = ft_scale(&ray.direction, closest->distance);
-			closest->intersection = ft_addition(&ray.origin, &ray_distance);	
-			closest->normal = ft_subtraction(&closest->intersection, &sphere->origin);
+			closest->intersection = ft_addition(&ray.origin, &ray_distance);
+			closest->normal = ft_subtraction(&closest->intersection,
+					&sphere->origin);
 			closest->normal = ft_normalize(&closest->normal);
 		}
 		sphere = sphere->next;
@@ -92,18 +93,17 @@ static void closest_sphere(t_figure *closest, t_ray ray)
 
 //all this functions basically only check if the pixel hits a sphere
 //if not, closest.distance remains as INFINITY and no color will be asigned
-//if it intersects with a sphere, t_figure closest will store the data 
+//if it intersects with a sphere, t_figure closest will store the data
 //of the closest sphere (in case there is more than 1)
 //no light or shadow are considerer here
-t_figure render_sphere(t_data *data, t_ray ray)
+t_figure	render_sphere(t_data *data, t_ray ray)
 {
-	t_figure closest;
+	t_figure	closest;
 
 	closest.distance = INFINITY;
 	closest.cylinder = NULL;
 	closest.plane = NULL;
 	closest.sphere = data->sp;
 	closest_sphere(&closest, ray);
-	return(closest);
+	return (closest);
 }
-

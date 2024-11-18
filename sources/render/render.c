@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: miguandr <miguandr@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/17 23:08:10 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/18 16:45:51 by miguandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 //closest will be the first figure the ray impact
 //if there is no figure (distance = INFINITY), there will be no color (black)
 //otherwhise we call the function to add the color to the pixel
-static void render_pixel(int x, int y, t_data *data)
+static void	trace_ray_for_pixel(int x, int y, t_data *data)
 {
-	t_figure    closest;
-	t_figure    temp;
-	t_ray       ray;
-	
+	t_figure	closest;
+	t_figure	temp;
+	t_ray		ray;
+
 	closest.distance = INFINITY;
 	temp.distance = INFINITY;
 	//ray.direction = //TODO
@@ -36,24 +36,23 @@ static void render_pixel(int x, int y, t_data *data)
 	if (temp.distance < closest.distance)
 		closest = temp;
 	if (closest.distance < INFINITY)
-		//ft_color(x, y, data, closest); //TODO
-		
+		generate_pixel_color(data, x, y, closest);
 }
 
-static void render_scene(t_data *data)
+static void	render_scene(t_data *data)
 {
-	int x;
-	int y;
-	
+	int	x;
+	int	y;
+
 	x = 0;
 	y = 0;
-	//set_camera(); //TODO
+	init_camera(data->cam);
 	ft_putendl_fd("Rendering scene...", 1);
 	while (x < WIDTH)
 	{
 		while (y < HEIGHT)
 		{
-			render_pixel(x, y, data);
+			trace_ray_for_pixel(x, y, data);
 			y++;
 		}
 		y = 0;

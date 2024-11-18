@@ -72,12 +72,12 @@ static float calculate_distance(t_cylinder *cylinder, t_ray ray)
 //Ray's distance is its direction multiplied by the distance to the closest pl
 //adding the ray's origin (camera POV) to its distance gives a
 //vector that goes from the origin to the closest cylinder.
-static void closest_cylinder(t_figure *closest, t_ray ray)
+static void	closest_cylinder(t_figure *closest, t_ray ray)
 {
-	t_cylinder *cylinder;
-	float   temp_distance;
-	t_vector ray_distance;
-	
+	t_cylinder	*cylinder;
+	float		temp_distance;
+	t_vector	ray_distance;
+
 	cylinder = closest->cylinder;
 	while (cylinder)
 	{
@@ -88,7 +88,7 @@ static void closest_cylinder(t_figure *closest, t_ray ray)
 			closest->normal = cylinder->normal;
 			closest->cylinder = cylinder;
 			ray_distance = ft_scale(&ray.direction, closest->distance);
-			closest->intersection = ft_addition(&ray.origin, &ray_distance);	
+			closest->intersection = ft_addition(&ray.origin, &ray_distance);
 		}
 		cylinder = cylinder->next;
 	}
@@ -96,17 +96,17 @@ static void closest_cylinder(t_figure *closest, t_ray ray)
 
 //all this functions basically only check if the pixel hits a cylinder
 //if not, closest.distance remains as INFINITY and no color will be asigned
-//if it intersects with a cylinder, t_figure closest will store the data 
+//if it intersects with a cylinder, t_figure closest will store the data
 //of the closest cylinder (in case there is more than 1)
 //no light or shadow are considerer here
-t_figure render_cylinder(t_data *data, t_ray ray)
+t_figure	render_cylinder(t_data *data, t_ray ray)
 {
-	t_figure closest;
+	t_figure	closest;
 
 	closest.distance = INFINITY;
 	closest.plane = NULL;
 	closest.sphere = NULL;
 	closest.cylinder = data->cy;
 	closest_cylinder(&closest, ray);
-	return(closest);
+	return (closest);
 }

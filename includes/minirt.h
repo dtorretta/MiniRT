@@ -67,9 +67,14 @@ typedef struct s_camera
 {
 	int			q;
 	float		fov;
+	float		focal_length;
 	t_vector	origin;
-	t_vector	orientation; //direccion me entro la duda de se deberia llamarse asi o norm | Migue: pienso que orientation es mas explicito
-	//dani: a los demas le deje el nombre normal ya que un normal vector por definicion es el vector perpendicular. me cuesta un pcoo en la practica entender que conio es
+	t_vector	aim; //Migue: al final le puse a direction 'aim' para diferenciarlo un poco
+	t_vector	right;
+	t_vector	up;
+	t_vector	pixel_delta_x;
+	t_vector	pixel_delta_y;
+	t_vector	pixel00_location;
 }					t_camera;
 
 /*Sphere Structure*/
@@ -155,43 +160,50 @@ typedef struct s_data
 }					t_data;
 
 /*Error Funtions*/
-int		handle_error(t_data *data, int error);
-int		handle_error2(t_data *data, int error);
+int			handle_error(t_data *data, int error);
+int			handle_error2(t_data *data, int error);
 
 /*Parser Functions*/
-int		parser(char *file, t_data *data);
-void	parse_ambient(char **array, t_data *data);
-void	parse_light(char **array, t_data *data);
-void	parse_sphere(char **array, t_data *data);
-void	parse_camera(char **array, t_data *data);
-void	parse_plane(char **array, t_data *data);
-void	parse_cylinder(char **array, t_data *data);
+int			parser(char *file, t_data *data);
+void		parse_ambient(char **array, t_data *data);
+void		parse_light(char **array, t_data *data);
+void		parse_sphere(char **array, t_data *data);
+void		parse_camera(char **array, t_data *data);
+void		parse_plane(char **array, t_data *data);
+void		parse_cylinder(char **array, t_data *data);
 
 /*Parser Utils Functions*/
-int		check_color(char **rgb);
-int		check_vectors(char **xyz, char **to_free, int flag);
+int			check_color(char **rgb);
+int			check_vectors(char **xyz, char **to_free, int flag);
 
 /*Render functions*/
-void    render(t_data *data);
-int mouse_exit(t_data *data);
-int	keyboard_exit(int keysym, t_data *data);
+void		render(t_data *data);
+int			mouse_exit(t_data *data);
+int			keyboard_exit(int keysym, t_data *data);
+void		init_camera(t_camera *camera);
+
+/*Color Funtions & Utils*/
+void		generate_pixel_color(t_data *data, int x, int y, t_figure figure);
+int			check_shadow(t_data *data, t_vector *point,
+				t_vector *normal, t_vector *light_direction);
 
 /*Figures Functions*/
-t_figure render_plane(t_data *data, t_ray ray);
-t_figure render_sphere(t_data *data, t_ray ray);
+t_figure	render_plane(t_data *data, t_ray ray);
+t_figure	render_sphere(t_data *data, t_ray ray);
+t_figure	render_cylinder(t_data *data, t_ray ray);
 
 /*Vector Utils*/
-t_vector ft_addition (t_vector *a, t_vector *b);
-t_vector ft_subtraction (t_vector *a, t_vector *b);
-t_vector ft_cross (t_vector *a, t_vector *b);
-float ft_dot (t_vector *a, t_vector *b);
-t_vector ft_normalize (t_vector *a);
-float ft_lenght (t_vector *a);
-t_vector ft_scale(t_vector *a, float scalar);
+t_vector	ft_addition(t_vector *a, t_vector *b);
+t_vector	ft_subtraction(t_vector *a, t_vector *b);
+t_vector	ft_cross(t_vector *a, t_vector *b);
+float		ft_dot(t_vector *a, t_vector *b);
+t_vector	ft_normalize(t_vector *a);
+float		ft_lenght(t_vector *a);
+t_vector	ft_scale(t_vector *a, float scalar);
 t_vector	ft_perpendicular(t_vector *a, t_vector *b);
 
 /*Utils Functions*/
-void	normalize_whitespace(char *str);
-void	free_memory(t_data *data);
+void		normalize_whitespace(char *str);
+void		free_memory(t_data *data);
 
 #endif
