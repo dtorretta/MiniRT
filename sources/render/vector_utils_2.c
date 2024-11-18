@@ -12,22 +12,22 @@
 
 #include "../../includes/minirt.h"
 
-float ft_lenght(t_vector *a)
+float	ft_lenght(t_vector *a)
 {
-	float result;
-	
-	result = sqrt(a->x * a->x + a->y * a->y + a->z * a->z);	
-	return(result);
+	float	result;
+
+	result = sqrt(a->x * a->x + a->y * a->y + a->z * a->z);
+	return (result);
 }
 
-t_vector ft_scale(t_vector *a, float scalar)
+t_vector	ft_scale(t_vector *a, float scalar)
 {
-	t_vector result;
-	
+	t_vector	result;
+
 	result.x = a->x * scalar;
 	result.y = a->y * scalar;
 	result.z = a->z * scalar;
-	return(result);
+	return (result);
 }
 
 t_vector	ft_perpendicular(t_vector *a, t_vector *b)

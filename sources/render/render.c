@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: miguandr <miguandr@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/17 23:08:10 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/18 14:13:27 by miguandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void render_pixel(int x, int y, t_data *data)
 	t_figure    closest;
 	t_figure    temp;
 	t_ray       ray;
-	
+
 	closest.distance = INFINITY;
 	temp.distance = INFINITY;
 	//ray.direction = //TODO
@@ -37,17 +37,16 @@ static void render_pixel(int x, int y, t_data *data)
 		closest = temp;
 	if (closest.distance < INFINITY)
 		//ft_color(x, y, data, closest); //TODO
-		
 }
 
-static void render_scene(t_data *data)
+static void	render_scene(t_data *data)
 {
-	int x;
-	int y;
-	
+	int	x;
+	int	y;
+
 	x = 0;
 	y = 0;
-	//set_camera(); //TODO
+	init_camera(data->cam);
 	ft_putendl_fd("Rendering scene...", 1);
 	while (x < WIDTH)
 	{
