@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/25 00:28:51 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/25 00:30:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ static void	trace_ray_for_pixel(int x, int y, t_data *data)
 
 	closest.distance = INFINITY;
 	temp.distance = INFINITY;
+	/*
+	pixel_center = ft_calculate_pixel_center(data->camera, x, y);
+	ray.direction = ft_subtract(&pixel_center, &data->camera->origin);
+	ray.direction = ft_normalize(&ray.direction);
+	*/
 	//ray.direction = //TODO
 	ray.origin = data->cam->origin;
 	if (data->pl)
