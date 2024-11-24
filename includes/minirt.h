@@ -104,6 +104,7 @@ typedef struct s_cylinder
 	float				height;
 	t_color				color;
 	struct s_cylinder	*next;
+	bool		         cy_cap;
 }					t_cylinder;
 
 /*MLX Structure*/
@@ -126,7 +127,7 @@ typedef struct s_figure
 	t_sphere	*sphere;
 	t_plane		*plane;
 	t_cylinder	*cylinder;
-	//int			cylinder_cap;
+	//bool		cy_cap;
 }				t_figure;
 
 typedef struct s_ray
@@ -191,6 +192,8 @@ int			check_shadow(t_data *data, t_vector *point,
 t_figure	render_plane(t_data *data, t_ray ray);
 t_figure	render_sphere(t_data *data, t_ray ray);
 t_figure	render_cylinder(t_data *data, t_ray ray);
+float       cap_distance(t_cylinder *cylinder, t_ray ray, t_quadratic *qdtc);
+int         check_height(t_cylinder *cy, t_ray ray, float dist);
 
 /*Vector Utils*/
 t_vector	ft_addition(t_vector *a, t_vector *b);

@@ -41,7 +41,7 @@ static float calculate_distance_2(float diameter, t_vector perp_l, t_quadratic *
 //where:
 //Lp = perperdicular component of L
 //L = ray's origin - cylinder's center (vector)
-//Rp = perperdicular component of ray's origin
+//Rp = perperdicular component of ray
 //r = cylinder's ratius
 //± means there are 2 possible interesctions. we will return the closets.
 //if temp_d is NOT >= 0, there is no interesection between the ray and the cy
@@ -50,6 +50,8 @@ static float calculate_distance(t_cylinder *cylinder, t_ray ray)
 	t_quadratic    *qdtc;
 	t_vector       perp_ray;
 	t_vector       perp_l;
+	float           closest;
+	float           dist3;
 
 	perp_ray = ft_perpendicular(&ray.direction, &cylinder->normal);
 	perp_l = ft_subtraction(&ray.origin, &cylinder->origin);
@@ -60,12 +62,39 @@ static float calculate_distance(t_cylinder *cylinder, t_ray ray)
 		return (INFINITY);
 	qdtc->dist1 = (-qdtc->b + qdtc->square);
 	qdtc->dist2 = (-qdtc->b - qdtc->square);
-	if(qdtc->dist1 >= 0 && (qdtc->dist1 < qdtc->dist2 || qdtc->dist2 <= 0))
-		return(qdtc->dist1);
-	else if (qdtc->dist2 >= 0)
-		return(qdtc->dist2);
-	else
-		return (INFINITY);
+	closest = INFINITY;
+	if(qdtc->dist1 >= 0 && check_height(cylinder, ray, qdtc->dist1))
+		closest = qdtc->dist1;
+	if (qdtc->dist2 >= 0 && check_height(cylinder, ray, qdtc->dist2) && qdtc->dist2 < closest)
+		closest = qdtc->dist2;
+	dist3 =  cap_distance(cylinder, ray, qdtc);
+	if (dist3 < closest)
+		closest = dist3;
+	return (closest);
+}
+
+//calculate the normal vector of the intersection
+//if the intersection is on the cylinder's cap, it will bethe cylinder->normal
+//This is because the caps are flat and parallel to the cylinder's axis. 
+//Therefore, any point on the cap has the same normal as the axis.
+//if that does not happen, t = interection to origin − projection
+//where:
+//intersection: is the displacement from the cylinder's origin to 
+//its point of intersection
+//projection: (intersection * N) * N
+static t_vector	calculate_normal(t_cylinder *cylinder, t_figure *closest)
+{
+	t_vector	projection;
+	t_vector	intersection;
+	t_vector    t;
+
+	if (cylinder->cy_cap == true)
+		return (cylinder->normal);
+		
+	intersection  = ft_subtraction(&closest->intersection, &cylinder->origin);
+	projection = ft_scale(&cylinder->normal, ft_dot(&intersection , &cylinder->normal));
+	t = ft_subtraction(&intersection , &projection);
+	return (ft_normalize(&t));
 }
 
 //Ray's direction is a vector nomalized at 1. 
@@ -81,11 +110,12 @@ static void	closest_cylinder(t_figure *closest, t_ray ray)
 	cylinder = closest->cylinder;
 	while (cylinder)
 	{
+		cylinder->cy_cap = false;
 		temp_distance = calculate_distance (cylinder, ray);
 		if (temp_distance >= 0 && temp_distance < closest->distance)
 		{
 			closest->distance = temp_distance;
-			closest->normal = cylinder->normal;
+			closest->normal = calculate_normal(cylinder, closest);
 			closest->cylinder = cylinder;
 			ray_distance = ft_scale(&ray.direction, closest->distance);
 			closest->intersection = ft_addition(&ray.origin, &ray_distance);
