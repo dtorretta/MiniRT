@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/18 21:07:37 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/25 00:28:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	trace_ray_for_pixel(int x, int y, t_data *data)
 	if (temp.distance < closest.distance)
 		closest = temp;
 	if (data->cy)
-		temp = render_cylinder(data, ray); //in progress
+		temp = render_cylinder(data, ray);
 	if (temp.distance < closest.distance)
 		closest = temp;
 	if (closest.distance < INFINITY)
