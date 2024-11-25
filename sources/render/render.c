@@ -6,11 +6,28 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/25 00:30:53 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/25 21:31:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
+
+static t_vector	calculate_ray_direction(t_data *data, int x, int y)
+{
+	t_vector	pixel_center;
+	t_vector	scaled_x;
+	t_vector	scaled_y;
+	t_vector    ray_direction;
+
+	scaled_x = ft_scale(&data->cam->pixel_delta_x, (float)x);
+	scaled_y = ft_scale(&data->cam->pixel_delta_y, (float)y);
+	pixel_center = ft_addition(&scaled_x, &scaled_y);
+	pixel_center = ft_addition(&pixel_center, &data->cam->pixel00_location);
+	ray_direction = ft_subtraction(&pixel_center, &data->cam->origin);
+	ray_direction = ft_normalize(&ray_direction);
+	return (ray_direction);
+}
+
 
 //closest will be the first figure the ray impact
 //if there is no figure (distance = INFINITY), there will be no color (black)
@@ -23,11 +40,7 @@ static void	trace_ray_for_pixel(int x, int y, t_data *data)
 
 	closest.distance = INFINITY;
 	temp.distance = INFINITY;
-	/*
-	pixel_center = ft_calculate_pixel_center(data->camera, x, y);
-	ray.direction = ft_subtract(&pixel_center, &data->camera->origin);
-	ray.direction = ft_normalize(&ray.direction);
-	*/
+	ray.direction = calculate_ray_direction(data, x, y);
 	ray.origin = data->cam->origin;
 	if (data->pl)
 		closest = render_plane(data, ray);
