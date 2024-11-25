@@ -30,9 +30,9 @@ static void	set_node(t_data *data, char **rgb, char **origin, char **norm)
 	node->origin.x = ft_atof(origin[0]);
 	node->origin.y = ft_atof(origin[1]);
 	node->origin.z = ft_atof(origin[2]);
-	node->norm.x = ft_atof(norm[0]);
-	node->norm.y = ft_atof(norm[1]);
-	node->norm.z = ft_atof(norm[2]);
+	node->normal.x = ft_atof(norm[0]);
+	node->normal.y = ft_atof(norm[1]);
+	node->normal.z = ft_atof(norm[2]);
 	node->color.r = ft_atoi(rgb[0]);
 	node->color.g = ft_atoi(rgb[1]);
 	node->color.b = ft_atoi(rgb[2]);

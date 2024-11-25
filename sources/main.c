@@ -26,18 +26,16 @@ int	check_extension(char *file) //se puede pooner en otro file
 //al final si es necesario primero incializarlo en null y despues asignarle malloc
 void	init_data(t_data *data)
 {
-	//data->light = NULL;
-	//data->amb = NULL;
-	//data->cam = NULL;
+
 	data->sp = NULL;
 	data->pl = NULL;
 	data->cy = NULL;
-	//data->mlx = NULL;
+	data->qdtc = malloc(sizeof(t_quadratic));
 	data->light = malloc(sizeof(t_light));
 	data->amb = malloc(sizeof(t_ambient));
 	data->cam = malloc(sizeof(t_camera));
 	data->mlx = malloc(sizeof(t_mlx));
-	if (!data->light || !data->amb || !data->cam || !data->mlx)
+	if (!data->light || !data->amb || !data->cam || !data->mlx || !data->qdtc)
 		handle_error(data, 1);
 	data->light->q = 0;
 	data->amb->q = 0;

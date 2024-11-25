@@ -30,6 +30,17 @@
 # define WIDTH 800
 # define FINISH_EVENT 17
 
+/*Quadratic Structure*/
+typedef struct s_quadratic
+{
+	float		b;
+	float		c;
+	float       dist1;
+	float       dist2;
+	float       radius;
+	float       square;
+}				t_quadratic;
+
 /*Color Structure*/
 typedef struct s_color
 {
@@ -84,6 +95,7 @@ typedef struct s_sphere
 	t_color			color;
 	float			diameter;
 	struct s_sphere	*next;
+	t_quadratic     *qdtc;
 }					t_sphere;
 
 /*Plane Structure*/
@@ -104,7 +116,8 @@ typedef struct s_cylinder
 	float				height;
 	t_color				color;
 	struct s_cylinder	*next;
-	bool		         cy_cap;
+	bool		        cy_cap;
+	t_quadratic         *qdtc;
 }					t_cylinder;
 
 /*MLX Structure*/
@@ -136,17 +149,6 @@ typedef struct s_ray
 	t_vector	direction;
 }			t_ray;
 
-typedef struct s_quadratic
-{
-	float		b;
-	float		c;
-	float       dist1;
-	float       dist2;
-	float       radius;
-	float       square;
-}				t_quadratic;
-
-
 /*Data Structure*/
 typedef struct s_data
 {
@@ -157,6 +159,7 @@ typedef struct s_data
 	t_sphere	*sp;
 	t_plane		*pl;
 	t_cylinder	*cy;
+	t_quadratic  *qdtc;
 	//t_figure    *figure;
 }					t_data;
 

@@ -47,12 +47,13 @@ static float calculate_distance_2(float diameter, t_vector perp_l, t_quadratic *
 //if temp_d is NOT >= 0, there is no interesection between the ray and the cy
 static float calculate_distance(t_cylinder *cylinder, t_ray ray)
 {
-	t_quadratic    *qdtc;
 	t_vector       perp_ray;
 	t_vector       perp_l;
+	t_quadratic    *qdtc;
 	float           closest;
 	float           dist3;
 
+	qdtc = cylinder->qdtc;
 	perp_ray = ft_perpendicular(&ray.direction, &cylinder->normal);
 	perp_l = ft_subtraction(&ray.origin, &cylinder->origin);
 	perp_l = ft_perpendicular(&perp_l, &cylinder->normal);

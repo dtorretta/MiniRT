@@ -45,9 +45,10 @@ static float calculate_distance_2(float diameter, t_quadratic *qdtc, t_vector l)
 //if temp_d is NOT >= 0, there is no interesection between the ray and the sp
 static float	calculate_distance(t_sphere *sphere, t_ray ray)
 {
-	t_quadratic    *qdtc;
 	t_vector    l;
+	t_quadratic *qdtc;
 	
+	qdtc = sphere->qdtc;
 	l = ft_subtraction(&sphere->origin, &ray.origin);
 	qdtc->b = ft_dot(&l, &ray.direction);
 	qdtc->square = calculate_distance_2(sphere->diameter, qdtc, l);

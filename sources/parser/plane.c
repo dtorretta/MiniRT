@@ -22,9 +22,9 @@ static void	set_node(t_data *data, char **rgb, char **origin, char	**norm)
 	new_node->origin.x = ft_atof(origin[0]);
 	new_node->origin.y = ft_atof(origin[1]);
 	new_node->origin.z = ft_atof(origin[2]);
-	new_node->norm.x = ft_atof(norm[0]);
-	new_node->norm.y = ft_atof(norm[1]);
-	new_node->norm.z = ft_atof(norm[2]);
+	new_node->normal.x = ft_atof(norm[0]);
+	new_node->normal.y = ft_atof(norm[1]);
+	new_node->normal.z = ft_atof(norm[2]);
 	new_node->color.r = ft_atoi(rgb[0]);
 	new_node->color.g = ft_atoi(rgb[1]);
 	new_node->color.b = ft_atoi(rgb[2]);

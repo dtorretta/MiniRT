@@ -38,6 +38,17 @@ SRC		=	$(SRC_DIR)/error/error.c \
 			$(SRC_DIR)/parser/parser_utils.c \
 			$(SRC_DIR)/parser/plane.c \
 			$(SRC_DIR)/parser/sphere.c \
+			$(SRC_DIR)/render/color.c \
+			$(SRC_DIR)/render/color_utils.c \
+			$(SRC_DIR)/render/events.c \
+			$(SRC_DIR)/render/render_camera.c \
+			$(SRC_DIR)/render/render_cylinder.c \
+			$(SRC_DIR)/render/render_cylinder_utils.c \
+			$(SRC_DIR)/render/render_plane.c \
+			$(SRC_DIR)/render/render_sphere.c \
+			$(SRC_DIR)/render/render.c \
+			$(SRC_DIR)/utils/vector_utils.c \
+			$(SRC_DIR)/utils/vector_utils_2.c \
 			$(SRC_DIR)/utils/utils.c \
 			$(SRC_DIR)/main.c \
 			$(SRC_DIR)/render.c
@@ -76,11 +87,18 @@ clean:
 				@rm -rf $(OBJ_DIR)
 				@make -s clean -C $(MLX_DIR)
 				@make -s clean -C $(LIBFT_DIR)
+				@echo "\n------------------------------------------\n"
+				@echo "💧 Clean done \n"
+				@echo "------------------------------------------\n"
+
 
 fclean:			clean
 				@echo "Removing MiniRT..."
 				@rm -f $(NAME)
 				@rm -f $(LIBFT_DIR)$(LIBFT_NAME)
+				@echo "\n------------------------------------------\n"
+				@echo "🧼 Fclean done \n"
+				@echo "------------------------------------------\n"
 
 re:		fclean all
 
