@@ -26,8 +26,8 @@
 # include "../minilibx/mlx.h"
 
 /*-Macros-*/
-# define HEIGHT 8000
-# define WIDTH 8000
+# define HEIGHT 800
+# define WIDTH 800
 # define FINISH_EVENT 17
 
 /*Quadratic Structure*/
