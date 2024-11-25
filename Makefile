@@ -51,7 +51,6 @@ SRC		=	$(SRC_DIR)/error/error.c \
 			$(SRC_DIR)/utils/vector_utils_2.c \
 			$(SRC_DIR)/utils/utils.c \
 			$(SRC_DIR)/main.c \
-			$(SRC_DIR)/render.c
 
 # Object files
 OBJ_DIR	= obj/
