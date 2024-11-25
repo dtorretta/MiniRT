@@ -49,7 +49,7 @@ static float calculate_distance(t_cylinder *cylinder, t_ray ray)
 {
 	t_vector       perp_ray;
 	t_vector       perp_l;
-	t_quadratic    *qdtc;
+	t_quadratic    qdtc;
 	float           closest;
 	float           dist3;
 
@@ -57,18 +57,18 @@ static float calculate_distance(t_cylinder *cylinder, t_ray ray)
 	perp_ray = ft_perpendicular(&ray.direction, &cylinder->normal);
 	perp_l = ft_subtraction(&ray.origin, &cylinder->origin);
 	perp_l = ft_perpendicular(&perp_l, &cylinder->normal);
-	qdtc->b = ft_dot(&perp_ray, &perp_l);
-	qdtc->square = calculate_distance_2(cylinder->diameter, perp_l, qdtc);
-	if(qdtc->square < 0 || qdtc->square == INFINITY)
+	qdtc.b = ft_dot(&perp_ray, &perp_l);
+	qdtc.square = calculate_distance_2(cylinder->diameter, perp_l, &qdtc);
+	if(qdtc.square < 0 || qdtc.square == INFINITY)
 		return (INFINITY);
-	qdtc->dist1 = (-qdtc->b + qdtc->square);
-	qdtc->dist2 = (-qdtc->b - qdtc->square);
+	qdtc.dist1 = (-qdtc.b + qdtc.square);
+	qdtc.dist2 = (-qdtc.b - qdtc.square);
 	closest = INFINITY;
-	if(qdtc->dist1 >= 0 && check_height(cylinder, ray, qdtc->dist1))
-		closest = qdtc->dist1;
-	if (qdtc->dist2 >= 0 && check_height(cylinder, ray, qdtc->dist2) && qdtc->dist2 < closest)
-		closest = qdtc->dist2;
-	dist3 =  cap_distance(cylinder, ray, qdtc);
+	if(qdtc.dist1 >= 0 && check_height(cylinder, ray, qdtc.dist1))
+		closest = qdtc.dist1;
+	if (qdtc.dist2 >= 0 && check_height(cylinder, ray, qdtc.dist2) && qdtc.dist2 < closest)
+		closest = qdtc.dist2;
+	dist3 =  cap_distance(cylinder, ray, &qdtc);
 	if (dist3 < closest)
 		closest = dist3;
 	return (closest);

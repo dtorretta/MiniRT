@@ -23,7 +23,6 @@ int	check_extension(char *file) //se puede pooner en otro file
 	return (ft_strncmp(file + len, ".rt", 3));
 }
 
-//al final si es necesario primero incializarlo en null y despues asignarle malloc
 void	init_data(t_data *data)
 {
 
@@ -59,7 +58,3 @@ int	main(int ac, char **av)
 
 	return (0);
 }
-
-/*
-cc -Wall -Wextra -Werror -I ./includes -I ./libft/includes -I /usr/include/readline main.c ./parser/parser.c ./error/error.c ./utils/utils.c -L ../libft -lft -L /usr/lib -lreadline -o test
-*/

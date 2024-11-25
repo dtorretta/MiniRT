@@ -26,8 +26,8 @@
 # include "../minilibx/mlx.h"
 
 /*-Macros-*/
-# define HEIGHT 800
-# define WIDTH 800
+# define HEIGHT 8000
+# define WIDTH 8000
 # define FINISH_EVENT 17
 
 /*Quadratic Structure*/
@@ -95,7 +95,7 @@ typedef struct s_sphere
 	t_color			color;
 	float			diameter;
 	struct s_sphere	*next;
-	t_quadratic     *qdtc;
+	t_quadratic     qdtc;
 }					t_sphere;
 
 /*Plane Structure*/
@@ -117,7 +117,7 @@ typedef struct s_cylinder
 	t_color				color;
 	struct s_cylinder	*next;
 	bool		        cy_cap;
-	t_quadratic         *qdtc;
+	t_quadratic         qdtc;
 }					t_cylinder;
 
 /*MLX Structure*/

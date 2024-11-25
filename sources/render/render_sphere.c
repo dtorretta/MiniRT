@@ -46,20 +46,20 @@ static float calculate_distance_2(float diameter, t_quadratic *qdtc, t_vector l)
 static float	calculate_distance(t_sphere *sphere, t_ray ray)
 {
 	t_vector    l;
-	t_quadratic *qdtc;
+	t_quadratic qdtc;
 	
 	qdtc = sphere->qdtc;
 	l = ft_subtraction(&sphere->origin, &ray.origin);
-	qdtc->b = ft_dot(&l, &ray.direction);
-	qdtc->square = calculate_distance_2(sphere->diameter, qdtc, l);
-	if(qdtc->square < 0 || qdtc->square == INFINITY)
+	qdtc.b = ft_dot(&l, &ray.direction);
+	qdtc.square = calculate_distance_2(sphere->diameter, &qdtc, l);
+	if(qdtc.square < 0 || qdtc.square == INFINITY)
 		return (INFINITY);
-	qdtc->dist1 = (-qdtc->b + qdtc->square);
-	qdtc->dist2 = (-qdtc->b - qdtc->square);
-	if(qdtc->dist1 >= 0 && (qdtc->dist1 < qdtc->dist2 || qdtc->dist2 <= 0))
-		return(qdtc->dist1);
-	else if (qdtc->dist2 >= 0)
-		return(qdtc->dist2);
+	qdtc.dist1 = (-qdtc.b + qdtc.square);
+	qdtc.dist2 = (-qdtc.b - qdtc.square);
+	if(qdtc.dist1 >= 0 && (qdtc.dist1 < qdtc.dist2 || qdtc.dist2 <= 0))
+		return(qdtc.dist1);
+	else if (qdtc.dist2 >= 0)
+		return(qdtc.dist2);
 	else
 		return (INFINITY);
 }

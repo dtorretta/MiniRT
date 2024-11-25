@@ -12,6 +12,16 @@
 
 #include "../../includes/minirt.h"
 
+static void init_qdtc(t_sphere	*new_node)
+{
+	new_node->qdtc.b = 0;
+	new_node->qdtc.c = 0;
+	new_node->qdtc.dist1 = 0;
+	new_node->qdtc.dist2 = 0;
+	new_node->qdtc.radius = 0;
+	new_node->qdtc.square = 0;
+}
+
 static void	set_node(t_data *data, char **array, char **rgb, char **origin)
 {
 	t_sphere	*new_node;
@@ -26,6 +36,7 @@ static void	set_node(t_data *data, char **array, char **rgb, char **origin)
 	new_node->color.r = ft_atoi(rgb[0]);
 	new_node->color.g = ft_atoi(rgb[1]);
 	new_node->color.b = ft_atoi(rgb[2]);
+	init_qdtc (new_node);
 	if (!data->sp)
 	{
 		data->sp = new_node;

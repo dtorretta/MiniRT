@@ -12,10 +12,21 @@
 
 #include "../../includes/minirt.h"
 
+static void init_qdtc(t_cylinder	*new_node)
+{
+	new_node->qdtc.b = 0;
+	new_node->qdtc.c = 0;
+	new_node->qdtc.dist1 = 0;
+	new_node->qdtc.dist2 = 0;
+	new_node->qdtc.radius = 0;
+	new_node->qdtc.square = 0;
+}
+
 static void	set_node2(t_cylinder *node, char **array)
 {
 	node->diameter = atof(array[3]);
 	node->height = atof(array[4]);
+	init_qdtc (node);
 }
 
 //no importa el orden de aparicion por lo que por practicidad, cada nuevo elemento se a;ade adelante en la linked list,

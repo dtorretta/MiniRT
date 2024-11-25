@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/25 21:59:26 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/25 23:15:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ static void	trace_ray_for_pixel(int x, int y, t_data *data)
 	if (temp.distance < closest.distance)
 		closest = temp;
 	if (closest.distance < INFINITY)
+	{
+		printf("check\n");//borrar   no esta encontrando ninguna figura, porque pasa eso??
+		
 		generate_pixel_color(data, x, y, closest);
+	}
 }
 
 static void	render_scene(t_data *data)
@@ -62,17 +66,16 @@ static void	render_scene(t_data *data)
 	int	y;
 
 	x = 0;
-	y = 0;
 	init_camera(data->cam);
 	ft_putendl_fd("Rendering scene...", 1);
 	while (x < WIDTH)
 	{
+		y = 0;
 		while (y < HEIGHT)
 		{
 			trace_ray_for_pixel(x, y, data);
 			y++;
 		}
-		y = 0;
 		x++;
 	}
 	ft_putendl_fd("Render done.", 1);
