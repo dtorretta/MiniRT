@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/25 23:40:12 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/25 23:40:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	trace_ray_for_pixel(int x, int y, t_data *data)
 		closest = temp;
 	if (closest.distance < INFINITY)
 	{
-		//printf("check\n");//borrar no esta encontrando ninguna figura, porque pasa eso??
+		//printf("check\n");// no esta encontrando ninguna figura, porque pasa eso??
 		//solo funciona cuando se trata del plano, para las demas figura no aparece nada
 		generate_pixel_color(data, x, y, closest);
 	}
