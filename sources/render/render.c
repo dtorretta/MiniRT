@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2024/12/03 00:21:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/03 00:40:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	trace_ray_for_pixel(int x, int y, t_data *data)
 	if (temp.distance < closest.distance)
 		closest = temp;
 	if (closest.distance < INFINITY)
-		generate_pixel_color(data, x, y, closest); //hay problemas con los colores // el cilindro funciona pero esta espejado //no esta implementado que cambie de tama;o o se mueva
+		generate_pixel_color(data, x, y, closest); //el cilindro funciona pero esta espejado //no esta implementado que cambie de tama;o o se mueva
 }
 
 static void	render_scene(t_data *data)
