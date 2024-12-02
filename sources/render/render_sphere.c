@@ -14,9 +14,8 @@
 
 //this function calculates sqrt[discriminant]
 //the discriminant is the expression inside the square root:
-//√(B^2 - C)]
-//√[(l * d)^2 - (l * l - r^2)]
-//if (pow_b - C) < 0 it means the rays doesn't intercept the sphere
+//√(B^2 - 4AC)]
+//if (B^2 - 4AC) < 0 it means the rays doesn't intercept the sphere
 static float calculate_distance_2(float diameter, t_quadratic *qdtc, t_vector l)
 {
 	float    pow_b;
@@ -24,9 +23,9 @@ static float calculate_distance_2(float diameter, t_quadratic *qdtc, t_vector l)
 	qdtc->radius = (diameter / 2.0f);
 	pow_b = (qdtc->b * qdtc->b);
 	qdtc->c = (ft_dot(&l, &l) - (qdtc->radius * qdtc->radius));
-	if ((pow_b - qdtc->c) < 0)
+	if ((pow_b - 4.0f * qdtc->a * qdtc->c) < 0)
 		return (INFINITY);
-	return(sqrt(pow_b - qdtc->c));
+	return(sqrt(pow_b - 4.0f * qdtc->a * qdtc->c));
 }
 
 //t is the intersection distance between the ray and the sphere
@@ -36,9 +35,8 @@ static float calculate_distance_2(float diameter, t_quadratic *qdtc, t_vector l)
 //A = d * d
 //B = 2 * L * d 
 //C = L * L - r^2
-//after some simplifications:
-//t = {-(L*d) ± √[(L*d)^2 - (L^2 - r^2)]}
-//L = Sphere's center - ray's origin (vector)
+//where:
+//L = ray's origin - sphere's center (vector)
 //d = ray's direction (vector)
 //r = sphere's ratius
 //± means there are 2 possible interesctions. we will return the closets.
@@ -49,14 +47,15 @@ static float	calculate_distance(t_sphere *sphere, t_ray ray)
 	t_quadratic qdtc;
 	
 	qdtc = sphere->qdtc;
-	l = ft_subtraction(&sphere->origin, &ray.origin);
-	qdtc.b = ft_dot(&l, &ray.direction);
+	l = ft_subtraction(&ray.origin, &sphere->origin);
+	qdtc.a = ft_dot(&ray.direction, &ray.direction);
+	qdtc.b = 2.0 * ft_dot(&l, &ray.direction);
 	qdtc.square = calculate_distance_2(sphere->diameter, &qdtc, l);
-	if(qdtc.square < 0 || qdtc.square == INFINITY)
+	if(qdtc.square == INFINITY)
 		return (INFINITY);
-	qdtc.dist1 = (-qdtc.b + qdtc.square);
-	qdtc.dist2 = (-qdtc.b - qdtc.square);
-	if(qdtc.dist1 >= 0 && (qdtc.dist1 < qdtc.dist2 || qdtc.dist2 <= 0))
+	qdtc.dist1 = (-qdtc.b + qdtc.square) / (2.0f * qdtc.a);
+	qdtc.dist2 = (-qdtc.b - qdtc.square) / (2.0f * qdtc.a);
+	if(qdtc.dist1 >= 0 && (qdtc.dist2 <= 0 || qdtc.dist1 < qdtc.dist2))
 		return(qdtc.dist1);
 	else if (qdtc.dist2 >= 0)
 		return(qdtc.dist2);

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/25 23:40:56 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/03 00:21:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,7 @@ static void	trace_ray_for_pixel(int x, int y, t_data *data)
 	if (temp.distance < closest.distance)
 		closest = temp;
 	if (closest.distance < INFINITY)
-	{
-		//printf("check\n");// no esta encontrando ninguna figura, porque pasa eso??
-		//solo funciona cuando se trata del plano, para las demas figura no aparece nada
-		generate_pixel_color(data, x, y, closest);
-	}
+		generate_pixel_color(data, x, y, closest); //hay problemas con los colores // el cilindro funciona pero esta espejado //no esta implementado que cambie de tama;o o se mueva
 }
 
 static void	render_scene(t_data *data)

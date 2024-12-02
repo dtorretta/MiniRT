@@ -35,13 +35,13 @@ static float   cap_t(t_cylinder *cy, t_ray ray, t_quadratic *q, t_vector cap_cen
 	t_vector v;
 	float t;
 	
-	temp = ft_subtraction(&cap_center, &ray.origin); //(C - O)
-	t = ft_dot(&cy->normal, &temp) / ft_dot(&cy->normal, &ray.direction);
-	if(t > 0)
+	temp = ft_subtraction(&cap_center, &ray.origin); //(C - O) //ok
+	t = ft_dot(&cy->normal, &temp) / ft_dot(&cy->normal, &ray.direction); //ok
+	if(t >= 0) //>=??
 	{
-		temp = ft_scale(&ray.direction, t);
-		point = ft_addition(&ray.origin, &temp);
-		v = ft_subtraction(&point, &cap_center);
+		temp = ft_scale(&ray.direction, t); //ok
+		point = ft_addition(&ray.origin, &temp); //ok
+		v = ft_subtraction(&point, &cap_center); //ok
 		if (ft_lenght(&v) <= q->radius)
 			return(t);
 	}
@@ -56,19 +56,19 @@ float   cap_distance(t_cylinder *cylinder, t_ray ray, t_quadratic *qdtc)
 	t_vector cap_center_inf;
 	t_vector scaled_direction;
 	
-	scaled_direction = ft_scale(&cylinder->normal, cylinder->height / 2.0f);
-	cap_center_sup = ft_addition(&cylinder->origin, &scaled_direction);
-	cap_center_inf = ft_subtraction(&cylinder->origin, &scaled_direction);
-	
-	
+	scaled_direction = ft_scale(&cylinder->normal, cylinder->height / 2.0f); //ok
+	cap_center_sup = ft_addition(&cylinder->origin, &scaled_direction); //ok
+	cap_center_inf = ft_subtraction(&cylinder->origin, &scaled_direction); //ok
 	dist_sup = cap_t(cylinder, ray, qdtc, cap_center_sup);
 	dist_inf = cap_t(cylinder, ray, qdtc, cap_center_inf);	
-	if (dist_sup < dist_inf && (dist_sup > 0 && dist_inf > 0))
+	//if (dist_sup < dist_inf && (dist_sup > 0 && dist_inf > 0))
+	if (dist_sup < dist_inf && dist_sup != INFINITY)
 	{	
 		cylinder->cy_cap = true;
 		return(dist_sup);
 	}
-	else if (dist_inf > 0)
+	//else if (dist_inf > 0 && dist_inf != INFINITY)
+	else if (dist_inf != INFINITY)
 	{	
 		cylinder->cy_cap = true;
 		return(dist_inf);
@@ -100,7 +100,7 @@ int check_height(t_cylinder *cy, t_ray ray, float dist)
 	point = ft_addition(&ray.origin, &scaled_direction);
 	v = ft_subtraction(&point, &cy->origin);
 	height_projection = ft_dot(&v, &cy->normal);
-	if (height_projection <= cy->height / 2.0f && height_projection >= -cy->height / 2.0f && height_projection >= 0)
+	if (height_projection >= -cy->height / 2.0f && height_projection <= cy->height / 2.0f)
 		return(1);
 	return(0);
 }

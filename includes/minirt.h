@@ -33,6 +33,7 @@
 /*Quadratic Structure*/
 typedef struct s_quadratic
 {
+	float		a;
 	float		b;
 	float		c;
 	float       dist1;

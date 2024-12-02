@@ -12,21 +12,22 @@
 
 #include "../../includes/minirt.h"
 
-//this function calculates sqrt[discriminant]
-//the discriminant is the expression inside the square root:
-//√(B^2 - C)]
-//√[(Rp * Lp)^2 - (Lp^2 - r^2)]
-//if (pow_b - C) < 0 it means the rays doesn't intercept the cylinder
-static float calculate_distance_2(float diameter, t_vector perp_l, t_quadratic *qdtc)
+static float calculate_distance_2(t_cylinder *cylinder, t_ray ray, t_quadratic *qdtc)
 {
-	float    pow_b;
-
-	qdtc->radius = (diameter / 2.0f);
-	pow_b = (qdtc->b * qdtc->b);
-	qdtc->c = ft_dot(&perp_l, &perp_l) - (qdtc->radius * qdtc->radius);
-	if ((pow_b - qdtc->c) < 0)
-		return (INFINITY);
-	return(sqrt(pow_b - qdtc->c));
+	float           dist3;
+	float           closest;
+	
+	qdtc->dist1 = (-qdtc->b + qdtc->square) / (2.0f * qdtc->a);
+	qdtc->dist2 = (-qdtc->b - qdtc->square) / (2.0f * qdtc->a);
+	closest = INFINITY;
+	if(qdtc->dist1 >= 0 && check_height(cylinder, ray, qdtc->dist1))
+		closest = qdtc->dist1;
+	if (qdtc->dist2 >= 0 && check_height(cylinder, ray, qdtc->dist2) && qdtc->dist2 < closest)
+		closest = qdtc->dist2;
+	dist3 = cap_distance(cylinder, ray, qdtc);
+	if (dist3 < closest)
+		closest = dist3;
+	return (closest);
 }
 
 //t is the intersection distance between the ray and the cylinder
@@ -50,28 +51,21 @@ static float calculate_distance(t_cylinder *cylinder, t_ray ray)
 	t_vector       perp_ray;
 	t_vector       perp_l;
 	t_quadratic    qdtc;
-	float           closest;
-	float           dist3;
+	float    pow_b;
 
 	qdtc = cylinder->qdtc;
 	perp_ray = ft_perpendicular(&ray.direction, &cylinder->normal);
 	perp_l = ft_subtraction(&ray.origin, &cylinder->origin);
 	perp_l = ft_perpendicular(&perp_l, &cylinder->normal);
-	qdtc.b = ft_dot(&perp_ray, &perp_l);
-	qdtc.square = calculate_distance_2(cylinder->diameter, perp_l, &qdtc);
-	if(qdtc.square < 0 || qdtc.square == INFINITY)
+	qdtc.a = ft_dot(&perp_ray, &perp_ray);
+	qdtc.b = 2.0 * ft_dot(&perp_ray, &perp_l);
+	qdtc.radius = (cylinder->diameter / 2.0f);
+	pow_b = (qdtc.b * qdtc.b);
+	qdtc.c = ft_dot(&perp_l, &perp_l) - (qdtc.radius * qdtc.radius);
+	if ((pow_b - 4.0f * qdtc.a * qdtc.c) < 0)
 		return (INFINITY);
-	qdtc.dist1 = (-qdtc.b + qdtc.square);
-	qdtc.dist2 = (-qdtc.b - qdtc.square);
-	closest = INFINITY;
-	if(qdtc.dist1 >= 0 && check_height(cylinder, ray, qdtc.dist1))
-		closest = qdtc.dist1;
-	if (qdtc.dist2 >= 0 && check_height(cylinder, ray, qdtc.dist2) && qdtc.dist2 < closest)
-		closest = qdtc.dist2;
-	dist3 =  cap_distance(cylinder, ray, &qdtc);
-	if (dist3 < closest)
-		closest = dist3;
-	return (closest);
+	qdtc.square = (sqrt(pow_b - 4.0f * qdtc.a * qdtc.c));
+	return (calculate_distance_2(cylinder, ray, &qdtc));
 }
 
 //calculate the normal vector of the intersection
@@ -90,8 +84,7 @@ static t_vector	calculate_normal(t_cylinder *cylinder, t_figure *closest)
 	t_vector    t;
 
 	if (cylinder->cy_cap == true)
-		return (cylinder->normal);
-		
+		return (cylinder->normal);	
 	intersection  = ft_subtraction(&closest->intersection, &cylinder->origin);
 	projection = ft_scale(&cylinder->normal, ft_dot(&intersection , &cylinder->normal));
 	t = ft_subtraction(&intersection , &projection);
@@ -116,10 +109,10 @@ static void	closest_cylinder(t_figure *closest, t_ray ray)
 		if (temp_distance >= 0 && temp_distance < closest->distance)
 		{
 			closest->distance = temp_distance;
-			closest->normal = calculate_normal(cylinder, closest);
 			closest->cylinder = cylinder;
 			ray_distance = ft_scale(&ray.direction, closest->distance);
 			closest->intersection = ft_addition(&ray.origin, &ray_distance);
+			closest->normal = calculate_normal(cylinder, closest);
 		}
 		cylinder = cylinder->next;
 	}
