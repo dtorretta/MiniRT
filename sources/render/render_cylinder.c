@@ -24,7 +24,7 @@ static float calculate_distance_2(t_cylinder *cylinder, t_ray ray, t_quadratic *
 		closest = qdtc->dist1;
 	if (qdtc->dist2 >= 0 && check_height(cylinder, ray, qdtc->dist2) && qdtc->dist2 < closest)
 		closest = qdtc->dist2;
-	dist3 = cap_distance(cylinder, ray, qdtc);
+	dist3 = cap_distance(cylinder, ray, qdtc, closest);
 	if (dist3 < closest)
 		closest = dist3;
 	return (closest);
@@ -134,3 +134,176 @@ t_figure	render_cylinder(t_data *data, t_ray ray)
 	closest_cylinder(&closest, ray);
 	return (closest);
 }
+
+// float	ft_hit_cap(t_cylinder *cylinder, t_ray ray, t_vector cap_center)
+// {
+// 	float		t;
+// 	t_vector	oc;
+// 	t_vector	hitpoint;
+// 	t_vector	scaled_ray;
+// 	float		distance;
+
+// 	oc = ft_subtraction(&cap_center, &ray.origin);
+// 	t = ft_dot(&oc, &cylinder->normal) / ft_dot(&ray.direction,
+// 			&cylinder->normal);
+// 	scaled_ray = ft_scale(&ray.direction, t);
+// 	hitpoint = ft_addition(&ray.origin, &scaled_ray);
+// 	scaled_ray = ft_subtraction(&hitpoint, &cap_center);
+// 	distance = ft_lenght(&scaled_ray);
+// 	if (distance <= cylinder->diameter / 2.0f)
+// 		return (t);
+// 	return (INFINITY);
+// }
+
+// // calculate the intersection with the cylinder caps:
+// // calculate the center of the bottom and top caps
+// // send both caps to the hit_cap function
+// // if the ray intersects either of the caps, return the hit distance
+// float	ft_inter_cap(t_cylinder *cylinder, t_ray ray, float comp_t, t_figure *hit)
+// {
+// 	t_vector	scaled_direction;
+// 	t_vector	cap_center_bottom;
+// 	t_vector	cap_center_top;
+// 	float		closest_t;
+// 	float		t;
+
+// 	closest_t = INFINITY;
+// 	scaled_direction = ft_scale(&cylinder->normal,
+// 			(cylinder->height / 2.0f));
+// 	cap_center_bottom = ft_subtraction(&cylinder->origin, &scaled_direction);
+// 	cap_center_top = ft_addition(&cylinder->origin, &scaled_direction);
+// 	t = ft_hit_cap(cylinder, ray, cap_center_bottom);
+// 	if (t != INFINITY)
+// 		closest_t = t;
+// 	t = ft_hit_cap(cylinder, ray, cap_center_top);
+// 	if (t != INFINITY && t < closest_t)
+// 		closest_t = t;
+// 	if (closest_t < comp_t)
+// 		hit->cylinder_cap = 1;
+// 	return (closest_t);
+// }
+
+// // calculate the intersection with infinite cylinder
+// // check if the hit is within the cylinder height
+// int	ft_check_height(t_cylinder *cylinder, t_ray ray, float t)
+// {
+// 	t_vector	hitpoint;
+// 	float		projected_height;
+// 	t_vector	scaled_direction;
+// 	t_vector	subtracted;
+
+// 	scaled_direction = ft_scale(&ray.direction, t);
+// 	hitpoint = ft_addition(&ray.origin, &scaled_direction);
+// 	subtracted = ft_subtraction(&hitpoint, &cylinder->origin);
+// 	projected_height = ft_dot(&subtracted, &cylinder->normal);
+// 	if (projected_height >= -cylinder->height / 2.0f && projected_height
+// 		<= cylinder->height / 2.0f)
+// 		return (1);
+// 	return (0);
+// }
+
+// // calculate the normal vector of the hit point
+// void	ft_calculate_normal_c(t_cylinder *cylinder, t_figure *hit)
+// {
+// 	t_vector	projection;
+// 	t_vector	hit_to_origin;
+
+// 	if (hit->cylinder_cap)
+// 	{
+// 		hit->normal = cylinder->normal;
+// 		return ;
+// 	}
+// 	hit_to_origin = ft_subtraction(&hit->intersection, &cylinder->origin);
+// 	projection = ft_scale(&cylinder->normal, ft_dot(&hit_to_origin,
+// 				&cylinder->normal));
+// 	hit->normal = ft_subtraction(&hit_to_origin, &projection);
+// 	hit->normal = ft_normalize(&hit->normal);
+// }
+
+// float	*ft_discriminant_c(t_cylinder *cylinder, t_ray ray)
+// {
+// 	t_vector	perp_dir;
+// 	t_vector	perp_oc;
+// 	float		*calc;
+
+// 	calc = (float *)malloc(sizeof(float) * 4);
+// 	if (!calc)
+// 		return (NULL);
+// 	perp_dir = ft_perpendicular(&ray.direction, &cylinder->normal);
+// 	perp_oc = ft_subtraction(&ray.origin, &cylinder->origin);
+// 	perp_oc = ft_perpendicular(&perp_oc, &cylinder->normal);
+// 	calc[0] = ft_dot(&perp_dir, &perp_dir);
+// 	calc[1] = 2.0 * ft_dot(&perp_dir, &perp_oc);
+// 	calc[2] = ft_dot(&perp_oc, &perp_oc) - (cylinder->diameter / 2.0f)
+// 		* (cylinder->diameter / 2.0f);
+// 	calc[3] = calc[1] * calc[1] - 4.0f * calc[0] * calc[2];
+// 	return (calc);
+// }
+
+// // calc = {a, b, c, discriminant}
+// float	ft_inter_c(t_cylinder *cylinder, t_ray ray, t_figure *hit)
+// {
+// 	float		*calc;
+// 	float		t1;
+// 	float		t2;
+// 	float		t3;
+// 	float		closest_t;
+
+// 	closest_t = INFINITY;
+// 	calc = ft_discriminant_c(cylinder, ray);
+// 	if (calc[3] >= 0)
+// 	{
+// 		t1 = (-calc[1] - sqrt(calc[3])) / (2.0f * calc[0]);
+// 		t2 = (-calc[1] + sqrt(calc[3])) / (2.0f * calc[0]);
+// 		if (t1 > 0 && ft_check_height(cylinder, ray, t1))
+// 			closest_t = t1;
+// 		if (t2 > 0 && ft_check_height(cylinder, ray, t2) && t2 < closest_t)
+// 			closest_t = t2;
+// 	}
+// 	t3 = ft_inter_cap(cylinder, ray, closest_t, hit);
+// 	if (t3 < closest_t)
+// 		closest_t = t3;
+// 	free(calc);
+// 	return (closest_t);
+// }
+
+// void	ft_find_closest_c(t_data *data, t_ray ray, t_figure *hit, float t)
+// {
+// 	t_cylinder	*cylinder;
+// 	float		hit_distance;
+// 	t_vector	scaled_direction;
+
+// 	cylinder = data->cy;
+// 	while (cylinder)
+// 	{
+// 		cylinder->normal = ft_normalize(&cylinder->normal);
+// 		hit_distance = ft_inter_c(cylinder, ray, hit);
+// 		if (hit_distance < t)
+// 		{
+// 			t = hit_distance;
+// 			hit->cylinder = cylinder;
+// 			hit->distance = hit_distance;
+// 			scaled_direction = ft_scale(&ray.direction, t);
+// 			hit->intersection = ft_addition(&ray.origin, &scaled_direction);
+// 			ft_calculate_normal_c(cylinder, hit);
+// 			hit->sphere = NULL;
+// 			hit->plane = NULL;
+// 		}
+// 		cylinder = cylinder->next;
+// 	}
+// }
+
+// // draw sphere
+// t_figure	render_cylinder(t_data *data, t_ray ray)
+// {
+// 	float		closest_t;
+// 	t_figure		hit_result;
+
+// 	closest_t = INFINITY;
+// 	hit_result.distance = INFINITY;
+// 	hit_result.sphere = NULL;
+// 	hit_result.plane = NULL;
+// 	hit_result.cylinder_cap = 0;
+// 	ft_find_closest_c(data, ray, &hit_result, closest_t);
+// 	return (hit_result);
+// }

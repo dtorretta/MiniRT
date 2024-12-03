@@ -141,7 +141,7 @@ typedef struct s_figure
 	t_sphere	*sphere;
 	t_plane		*plane;
 	t_cylinder	*cylinder;
-	//bool		cy_cap;
+	int			cylinder_cap; //borrar
 }				t_figure;
 
 typedef struct s_ray
@@ -196,7 +196,7 @@ int			check_shadow(t_data *data, t_vector *point,
 t_figure	render_plane(t_data *data, t_ray ray);
 t_figure	render_sphere(t_data *data, t_ray ray);
 t_figure	render_cylinder(t_data *data, t_ray ray);
-float       cap_distance(t_cylinder *cylinder, t_ray ray, t_quadratic *qdtc);
+float   cap_distance(t_cylinder *cylinder, t_ray ray, t_quadratic *qdtc, float closest);
 int         check_height(t_cylinder *cy, t_ray ray, float dist);
 
 /*Vector Utils*/

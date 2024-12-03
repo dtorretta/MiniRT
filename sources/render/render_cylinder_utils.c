@@ -32,45 +32,45 @@ static float   cap_t(t_cylinder *cy, t_ray ray, t_quadratic *q, t_vector cap_cen
 {   
 	t_vector temp;
 	t_vector point;
-	t_vector v;
+	t_vector scaled_ray;
 	float t;
 	
-	temp = ft_subtraction(&cap_center, &ray.origin); //(C - O) //ok
-	t = ft_dot(&cy->normal, &temp) / ft_dot(&cy->normal, &ray.direction); //ok
-	if(t >= 0) //>=??
+	temp = ft_subtraction(&cap_center, &ray.origin); //(C - O)
+	t = ft_dot(&cy->normal, &temp) / ft_dot(&cy->normal, &ray.direction);
+	if(t >= 0)
 	{
-		temp = ft_scale(&ray.direction, t); //ok
-		point = ft_addition(&ray.origin, &temp); //ok
-		v = ft_subtraction(&point, &cap_center); //ok
-		if (ft_lenght(&v) <= q->radius)
+		temp = ft_scale(&ray.direction, t);
+		point = ft_addition(&ray.origin, &temp);
+		scaled_ray = ft_subtraction(&point, &cap_center);
+		if (ft_lenght(&scaled_ray) <= q->radius)
 			return(t);
 	}
 	return(INFINITY);
 }
 
-float   cap_distance(t_cylinder *cylinder, t_ray ray, t_quadratic *qdtc)
+float   cap_distance(t_cylinder *cylinder, t_ray ray, t_quadratic *qdtc, float closest)
 {
 	float dist_sup;
 	float dist_inf;
 	t_vector cap_center_sup;
 	t_vector cap_center_inf;
 	t_vector scaled_direction;
-	
-	scaled_direction = ft_scale(&cylinder->normal, cylinder->height / 2.0f); //ok
-	cap_center_sup = ft_addition(&cylinder->origin, &scaled_direction); //ok
-	cap_center_inf = ft_subtraction(&cylinder->origin, &scaled_direction); //ok
+
+	scaled_direction = ft_scale(&cylinder->normal, (cylinder->height / 2.0f));
+	cap_center_sup = ft_addition(&cylinder->origin, &scaled_direction);
+	cap_center_inf = ft_subtraction(&cylinder->origin, &scaled_direction);
 	dist_sup = cap_t(cylinder, ray, qdtc, cap_center_sup);
 	dist_inf = cap_t(cylinder, ray, qdtc, cap_center_inf);	
-	//if (dist_sup < dist_inf && (dist_sup > 0 && dist_inf > 0))
 	if (dist_sup < dist_inf && dist_sup != INFINITY)
 	{	
-		cylinder->cy_cap = true;
+		if (dist_sup < closest)
+			cylinder->cy_cap = true;
 		return(dist_sup);
 	}
-	//else if (dist_inf > 0 && dist_inf != INFINITY)
 	else if (dist_inf != INFINITY)
 	{	
-		cylinder->cy_cap = true;
+		if (dist_inf < closest)
+			cylinder->cy_cap = true;
 		return(dist_inf);
 	}
 	return(INFINITY);
@@ -89,6 +89,7 @@ float   cap_distance(t_cylinder *cylinder, t_ray ray, t_quadratic *qdtc)
 //D = Ray's direction
 //as the cylinder->origin is the center of it, 
 //its height is distributed up and down symmetrically from that point.
+
 int check_height(t_cylinder *cy, t_ray ray, float dist)
 {
 	t_vector point;
@@ -104,3 +105,4 @@ int check_height(t_cylinder *cy, t_ray ray, float dist)
 		return(1);
 	return(0);
 }
+
