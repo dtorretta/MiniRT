@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2024/12/03 00:40:43 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/14 01:01:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,18 @@ static void	trace_ray_for_pixel(int x, int y, t_data *data)
 	if (temp.distance < closest.distance)
 		closest = temp;
 	if (closest.distance < INFINITY)
-		generate_pixel_color(data, x, y, closest); //el cilindro funciona pero esta espejado //no esta implementado que cambie de tama;o o se mueva
+		generate_pixel_color(data, x, y, closest);
 }
 
-static void	render_scene(t_data *data)
+
+
+void	render_scene(t_data *data)
 {
 	int	x;
 	int	y;
 
 	x = 0;
-	init_camera(data->cam);
-	ft_putendl_fd("Rendering scene...", 1);
+	clear_image(data);
 	while (x < WIDTH)
 	{
 		y = 0;
@@ -74,7 +75,7 @@ static void	render_scene(t_data *data)
 		}
 		x++;
 	}
-	ft_putendl_fd("Render done.", 1);
+	mlx_put_image_to_window(data->mlx->mlx, data->mlx->window, data->mlx->img, 0, 0);
 }
 
 static void	init_mlx(t_data *data)
@@ -97,10 +98,12 @@ static void	init_mlx(t_data *data)
 void	render(t_data *data)
 {
 	init_mlx(data);
+	ft_putendl_fd("Rendering scene...", 1);
+	init_camera(data->cam);
 	render_scene(data);
-	mlx_put_image_to_window(data->mlx->mlx, data->mlx->window,
-		data->mlx->img, 0, 0);
+	ft_putendl_fd("Render done.", 1);
 	mlx_key_hook(data->mlx->window, keyboard_exit, data);
+	mlx_hook(data->mlx->window, KeyPress, KeyPressMask, key_handle, data);
 	mlx_hook(data->mlx->window, FINISH_EVENT, 0, mouse_exit, data);
 	mlx_loop(data->mlx->mlx);
 }

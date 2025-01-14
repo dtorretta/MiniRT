@@ -22,8 +22,13 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <readline/readline.h>
-//# include <X11/X.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
 # include "../minilibx/mlx.h"
+
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846264338327950288
+# endif
 
 /*-Macros-*/
 # define HEIGHT 800
@@ -183,6 +188,8 @@ int			check_vectors(char **xyz, char **to_free, int flag);
 
 /*Render functions*/
 void		render(t_data *data);
+void	    render_scene(t_data *data);
+int         key_handle (int keysym, t_data *data);
 int			mouse_exit(t_data *data);
 int			keyboard_exit(int keysym, t_data *data);
 void		init_camera(t_camera *camera);
@@ -196,7 +203,7 @@ int			check_shadow(t_data *data, t_vector *point,
 t_figure	render_plane(t_data *data, t_ray ray);
 t_figure	render_sphere(t_data *data, t_ray ray);
 t_figure	render_cylinder(t_data *data, t_ray ray);
-float   cap_distance(t_cylinder *cylinder, t_ray ray, t_quadratic *qdtc, float closest);
+float       cap_distance(t_cylinder *cylinder, t_ray ray, t_quadratic *qdtc, float closest);
 int         check_height(t_cylinder *cy, t_ray ray, float dist);
 
 /*Vector Utils*/
@@ -212,5 +219,14 @@ t_vector	ft_perpendicular(t_vector *a, t_vector *b);
 /*Utils Functions*/
 void		normalize_whitespace(char *str);
 void		free_memory(t_data *data);
+void        print_menu(void);
+void        clear_image(t_data *data);
+
+/*Events Utils*/
+void    move_objects(int keysym, t_data *data);
+void    move_light(int keysym, t_data *data);
+void    move_camera(int keysym, t_data *data);
+void    rotate_objects(int keysym, t_data *data);
+
 
 #endif

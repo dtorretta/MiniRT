@@ -1,5 +1,5 @@
 MAKEFILE: agregar el if para la libreria de mlx
-camera: agregar funcion del check erctor
+camera: agregar funcion del check verctor
         revisar coments
         actualizar el handle error
 

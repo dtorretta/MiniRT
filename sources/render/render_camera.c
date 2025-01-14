@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.c                                           :+:      :+:    :+:   */
+/*   render_camera.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 09:02:24 by miguandr          #+#    #+#             */
-/*   Updated: 2024/11/25 21:34:00 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/13 22:16:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	init_camera(t_camera *camera)
 	// Normalize camera direction and convert FOV to radians
 	camera->aim = ft_normalize(&camera->aim);
 	camera->focal_length = 1.0f;
-	camera->fov *= 3.14159265358979323846 / 180.0f;
+	camera->fov *= M_PI / 180.0f;
 	calculate_camera_basis(camera);
 	//viewport dimensions
 	aspect_ratio = (float)HEIGHT / (float)WIDTH;
