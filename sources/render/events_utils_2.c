@@ -40,6 +40,7 @@ static void    rotate_cy(t_cylinder *cy, double angle)
 	}	
 }
 
+
 void    rotate_objects(int keysym, t_data *data)
 {
 	double angle;
@@ -47,12 +48,13 @@ void    rotate_objects(int keysym, t_data *data)
 	angle = 0;
 	if (keysym == XK_z || keysym == XK_c)
 		angle = 15.0;
+
 	if (keysym == XK_x || keysym == XK_v) 
 		angle = -15.0;
 	if(keysym == XK_z || keysym == XK_x)
 	{
 		if (data->cy)
-		rotate_cy(data->cy, angle);
+			rotate_cy(data->cy, angle);
 	}
 	if(keysym == XK_c || keysym == XK_v)
 	{
