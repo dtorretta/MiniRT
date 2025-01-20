@@ -1,5 +1,5 @@
 # Name
-NAME = minirt
+NAME = miniRT
 
 # Compiler and Flags
 CC = cc
@@ -36,6 +36,8 @@ SRC = $(SRC_DIR)/error/error.c \
       $(SRC_DIR)/render/color.c \
       $(SRC_DIR)/render/color_utils.c \
       $(SRC_DIR)/render/events.c \
+      $(SRC_DIR)/render/events_utils.c \
+      $(SRC_DIR)/render/events_utils_2.c \
       $(SRC_DIR)/render/render_camera.c \
       $(SRC_DIR)/render/render_cylinder.c \
       $(SRC_DIR)/render/render_cylinder_utils.c \

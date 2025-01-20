@@ -86,7 +86,8 @@ int	parser(char *file, t_data *data)
 	if (fd < 0)
 		handle_error(data, 0);
 	read_lines(fd, data);
-	if (data->amb->q != 1 || data->light->q != 1 || data->cam->q != 1)
+	if (data->amb->q > 1 || data->light->q > 1 || data->cam->q > 1 || data->amb->q < 0 || data->light->q < 0 || data->cam->q < 0) //no se cual de los dos es el correcto. deberia el programa funciona con solo un elemento?
+	//if (data->amb->q != 1 || data->light->q != 1 || data->cam->q != 1)
 	{
 		close (fd);
 		handle_error(data, 2);

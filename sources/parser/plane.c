@@ -74,7 +74,6 @@ void	parse_plane(char **array, t_data *data)
 		ft_free_array(array);
 		handle_error(data, 7);
 	}
-	normalized = ft_split(array[2], ',');
 	set_node(data, rgb, origin, normalized);
 	ft_free_array(rgb);
 	ft_free_array(origin);

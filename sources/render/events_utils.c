@@ -14,25 +14,25 @@
 
 void    move_camera(int keysym, t_data *data) 
 {
-	if (keysym == XK_w) //up
+	if (keysym == XK_w)
 		data->cam->origin.y -= 0.1;
-	if (keysym == XK_s) //down
+	if (keysym == XK_s)
 		data->cam->origin.y += 0.1;
-	if (keysym == XK_a) //right
+	if (keysym == XK_a)
 		data->cam->origin.x += 0.1;
-	if (keysym == XK_d) //left
+	if (keysym == XK_d)
 		data->cam->origin.x -= 0.1;
 }
 
 void    move_light(int keysym, t_data *data) 
 {
-	if (keysym == XK_i) //up
+	if (keysym == XK_i)
 		data->light->origin.y += 1;
-	if (keysym == XK_k) //down
+	if (keysym == XK_k)
 		data->light->origin.y -= 1;
-	if (keysym == XK_j) //right
+	if (keysym == XK_j)
 		data->light->origin.x -= 1;
-	if (keysym == XK_l) //left
+	if (keysym == XK_l)
 		data->light->origin.x += 1;
 	if (keysym == XK_o)
 		data->light->origin.z += 1;
@@ -40,7 +40,7 @@ void    move_light(int keysym, t_data *data)
 		data->light->origin.z -= 1;
 }
 
-static void    move_sp(t_sphere *spheres, double dx, double dy, double dz) 
+static void move_sp(t_sphere *spheres, double dx, double dy, double dz) 
 {
 	t_sphere *current = spheres;
 	while (current) 
@@ -52,7 +52,7 @@ static void    move_sp(t_sphere *spheres, double dx, double dy, double dz)
 	}
 }
 
-static void    move_cy(t_cylinder *cylinders, double dx, double dy, double dz) 
+static void move_cy(t_cylinder *cylinders, double dx, double dy, double dz) 
 {
 	t_cylinder *current = cylinders;
 	while (current) 
@@ -66,8 +66,13 @@ static void    move_cy(t_cylinder *cylinders, double dx, double dy, double dz)
 
 void    move_objects(int keysym, t_data *data)
 {
-	double dx = 0, dy = 0, dz = 0;
+	double dx;
+	double dy;
+	double dz;
 	
+	dx = 0;
+	dy = 0;
+	dz = 0;
 	if (keysym == XK_Up || keysym == XK_t)
 		dy = 1;
 	else if (keysym == XK_Down || keysym == XK_g) 

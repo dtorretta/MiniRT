@@ -190,9 +190,17 @@ int			check_vectors(char **xyz, char **to_free, int flag);
 void		render(t_data *data);
 void	    render_scene(t_data *data);
 int         key_handle (int keysym, t_data *data);
+int         mouse_handle(int button, int x, int y, t_data *data);
 int			mouse_exit(t_data *data);
 int			keyboard_exit(int keysym, t_data *data);
 void		init_camera(t_camera *camera);
+
+/*Events Utils*/
+void        move_objects(int keysym, t_data *data);
+void        move_light(int keysym, t_data *data);
+void        move_camera(int keysym, t_data *data);
+void        rotate_objects(int keysym, t_data *data);
+
 
 /*Color Funtions & Utils*/
 void		generate_pixel_color(t_data *data, int x, int y, t_figure figure);
@@ -222,11 +230,6 @@ void		free_memory(t_data *data);
 void        print_menu(void);
 void        clear_image(t_data *data);
 
-/*Events Utils*/
-void    move_objects(int keysym, t_data *data);
-void    move_light(int keysym, t_data *data);
-void    move_camera(int keysym, t_data *data);
-void    rotate_objects(int keysym, t_data *data);
 
 
 #endif

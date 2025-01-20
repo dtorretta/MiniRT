@@ -49,7 +49,6 @@ void    rotate_objects(int keysym, t_data *data)
 		angle = 15.0;
 	if (keysym == XK_x || keysym == XK_v) 
 		angle = -15.0;
-		
 	if(keysym == XK_z || keysym == XK_x)
 	{
 		if (data->cy)

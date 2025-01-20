@@ -51,40 +51,42 @@ int key_handle(int keysym, t_data *data)
 {
 	if (keysym == XK_m)
 		print_menu();
-		
-	//translation of light
 	if (keysym == XK_i || keysym == XK_k || keysym == XK_j || keysym == XK_l || keysym == XK_o || keysym == XK_p)
 		move_light(keysym, data);
-		
-	//translation of camera
 	if (keysym == XK_w || keysym == XK_s || keysym == XK_a || keysym == XK_d)
 		move_camera(keysym, data);
-	
-	//translation of objetcs
 	if (keysym == XK_Up || keysym == XK_Down || keysym == XK_Right || keysym == XK_Left || XK_KP_Add || XK_KP_Subtract)
 		move_objects(keysym, data);
-
-	//rotation
 	if (keysym == XK_z || keysym == XK_x || keysym == XK_c || keysym == XK_v)
 		rotate_objects(keysym, data);
-	
-	//resize
 	if (keysym == XK_1 || keysym == XK_2)
 		resize_objects(keysym, data);
-	
 	render_scene(data);
-	return (0); //necesario?
+	return (0);
 }
 
 int	keyboard_exit(int keysym, t_data *data)
 {
-	// keysym 53 is for mac. DELETE later
-	if (keysym == 0xFF1B || keysym == 53)
+	if (keysym == 0xFF1B)
 	{
 		free_memory(data);
 		exit (0);
 	}
 	return (0);
+}
+
+int mouse_handle(int button, int x, int y, t_data *data)
+{
+	(void)x;
+	(void)y;
+	data->cam->fov /= 3.14159265358979323846 / 180.0f;
+	if (button == Button4)
+		data->cam->fov -= 10; 
+	else if (button == Button5)
+		data->cam->fov += 10;
+	init_camera(data->cam);
+	render_scene(data);
+	return(0);
 }
 
 int	mouse_exit(t_data *data)

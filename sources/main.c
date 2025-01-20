@@ -12,10 +12,10 @@
 
 #include "../includes/minirt.h"
 
-//es necesario hacer este chequeo?? o simplemente con que no funcione el open estamos?
+
 //chequeo de si el argv[1] que es el nombre del file, sea .rt. sino
 //ft_strncmp returns 1 if coincidence
-int	check_extension(char *file) //se puede pooner en otro file
+int	check_extension(char *file)
 {
 	int	len;
 
@@ -55,6 +55,5 @@ int	main(int ac, char **av)
 	init_data(data);
 	parser(av[1], data);
 	render(data);
-
 	return (0);
 }

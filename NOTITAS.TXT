@@ -1,7 +1,16 @@
+
+When you change the window resolution, the window's content must remain consistant.
+
+
+
 MAKEFILE: agregar el if para la libreria de mlx
 camera: agregar funcion del check verctor
         revisar coments
         actualizar el handle error
+
+
+
+
 
 5 Noviembre:
 draw_scene/render_scene:

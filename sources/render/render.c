@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2025/01/14 01:01:35 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/14 14:49:12 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	render(t_data *data)
 	ft_putendl_fd("Render done.", 1);
 	mlx_key_hook(data->mlx->window, keyboard_exit, data);
 	mlx_hook(data->mlx->window, KeyPress, KeyPressMask, key_handle, data);
+	mlx_hook(data->mlx->window, ButtonPress, ButtonPressMask, mouse_handle, data);
 	mlx_hook(data->mlx->window, FINISH_EVENT, 0, mouse_exit, data);
 	mlx_loop(data->mlx->mlx);
 }
