@@ -18,7 +18,7 @@ int	handle_error(t_data *data, int error)
 	const char	*error_message[] = {
 		"system error: error in fd\n", // 0
 		"Failed to allocate memory for data\n", // 1
-		"Error: A, L or C missing\n", // 2
+		"Error: additional  A, L or C\n", // 2
 		"Error: valid ratio range [0.0,1.0]\n", // 3
 		"Error: valid colors range [0-255]\n", // 4
 		"Error: wrong ambient's paramenters\n", // 5

@@ -12,29 +12,6 @@
 
 #include "../../includes/minirt.h"
 
-// void print_string_array(char **array) //borrar
-// {
-//     int i = 0;
-
-//     // Recorrer el array hasta encontrar un NULL
-//     printf("\nARRAY\n");
-//     while (array[i] != NULL)
-//     {
-//         printf("String %d: %s\n", i + 1, array[i]);
-//         i++;
-//     }
-// }
-
-// void ft_check(char **array)
-// {
-// 	(void)array; //borrar
-// 	//check ambient_ratio
-// 	//check amblight_input
-// 	//si algo falla llama a la funcion handle_error
-
-// }
-
-//la parte del parcing que va a ser general a todos los elementos
 void	parsing(char *line, t_data *data)
 {
 	char	**array;
@@ -55,7 +32,7 @@ void	parsing(char *line, t_data *data)
 		parse_plane(array, data);
 	if (!ft_strncmp(line, "cy", 2))
 		parse_cylinder(array, data);
-	ft_free_array(array); //libera al final luego de haber asignado todos los elementos de la linea, y vuele al while loop
+	ft_free_array(array);
 }
 
 void	read_lines(int fd, t_data *data)
@@ -86,8 +63,7 @@ int	parser(char *file, t_data *data)
 	if (fd < 0)
 		handle_error(data, 0);
 	read_lines(fd, data);
-	if (data->amb->q > 1 || data->light->q > 1 || data->cam->q > 1 || data->amb->q < 0 || data->light->q < 0 || data->cam->q < 0) //no se cual de los dos es el correcto. deberia el programa funciona con solo un elemento?
-	//if (data->amb->q != 1 || data->light->q != 1 || data->cam->q != 1)
+	if (data->amb->q > 1 || data->light->q > 1 || data->cam->q > 1 || data->amb->q < 0 || data->light->q < 0 || data->cam->q < 0)
 	{
 		close (fd);
 		handle_error(data, 2);

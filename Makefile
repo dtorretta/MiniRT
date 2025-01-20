@@ -65,8 +65,11 @@ $(OBJ_DIR):
 
 $(MLX):
 	@echo "Making MLX..."
-	@make -C $(MLX_DIR)
-
+	@if [ ! -d "$(MLX_DIR)" ]; then \
+		git clone https://github.com/42Paris/minilibx-linux.git $(MLX_DIR); \
+      fi
+	@$(MAKE) -C $(MLX_DIR)
+	
 $(LIBFT):
 	@echo "Making Libft..."
 	@make -C $(LIBFT_DIR)
@@ -74,13 +77,17 @@ $(LIBFT):
 $(NAME): $(OBJ)
 	@echo "Compiling MiniRT..."
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(MLX) $(LIBFT) $(INC) $(LIBS)
-	@echo "MiniRT ready."
-
+	@echo "\n------------------------------------------\n"
+	@echo "📟 MiniRT ready.\n"
+	@echo "------------------------------------------\n"
+      
 clean:
 	@echo "Removing .o object files..."
 	@rm -rf $(OBJ_DIR)
-	@make -s clean -C $(MLX_DIR)
 	@make -s clean -C $(LIBFT_DIR)
+	@if [ -d "$(MLX_DIR)" ]; then \
+		$(MAKE) -C $(MLX_DIR) clean; \
+	fi
 	@echo "\n------------------------------------------\n"
 	@echo "💧 Clean done \n"
 	@echo "------------------------------------------\n"
@@ -90,6 +97,9 @@ fclean:			clean
 	@echo "Removing MiniRT..."
 	@rm -f $(NAME)
 	@rm -f $(LIBFT_DIR)$(LIBFT_NAME)
+	@if [ -d "$(MLX_DIR)" ]; then \
+		rm -rf $(MLX_DIR); \
+	fi
 	@echo "\n------------------------------------------\n"
 	@echo "🧼 Fclean done \n"
 	@echo "------------------------------------------\n"
