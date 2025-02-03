@@ -12,51 +12,63 @@
 
 #include "../../includes/minirt.h"
 
-static void    rotate_pl(t_plane *planes, double angle) 
+static void	rotate_pl(t_plane *planes, double angle)
 {
-	t_plane *current = planes;
-	while (current) 
+	t_plane	*current;
+	double	angle_radians;
+	double	original_x;
+	double	original_y;
+
+	current = planes;
+	while (current)
 	{
-		double angle_radians = angle * M_PI / 180.0; 
-		double original_x = current->normal.x;
-		double original_y = current->normal.y;
-		current->normal.x = original_x * cos(angle_radians) - original_y * sin(angle_radians);
-		current->normal.y = original_x * sin(angle_radians) + current->normal.y * cos(angle_radians);
+		angle_radians = angle * M_PI / 180.0;
+		original_x = current->normal.x;
+		original_y = current->normal.y;
+		current->normal.x = original_x * cos(angle_radians)
+			- original_y * sin(angle_radians);
+		current->normal.y = original_x * sin(angle_radians)
+			+ current->normal.y * cos(angle_radians);
 		current = current->next;
-	}	
+	}
 }
 
-static void    rotate_cy(t_cylinder *cy, double angle) 
+static void	rotate_cy(t_cylinder *cy, double angle)
 {
-	t_cylinder *current = cy;
-	while (current) 
+	t_cylinder	*current;
+	double		angle_radians;
+	double		original_x;
+	double		original_y;
+
+	current = cy;
+	while (current)
 	{
-		double angle_radians = angle * M_PI / 180.0; 
-		double original_x = current->normal.x;
-		double original_y = current->normal.y;
-		current->normal.x = original_x * cos(angle_radians) - original_y * sin(angle_radians);
-		current->normal.y = original_x * sin(angle_radians) + original_y * cos(angle_radians);
+		angle_radians = angle * M_PI / 180.0;
+		original_x = current->normal.x;
+		original_y = current->normal.y;
+		current->normal.x = original_x * cos(angle_radians)
+			- original_y * sin(angle_radians);
+		current->normal.y = original_x * sin(angle_radians)
+			+ original_y * cos(angle_radians);
 		current = current->next;
-	}	
+	}
 }
 
-
-void    rotate_objects(int keysym, t_data *data)
+void	rotate_objects(int keysym, t_data *data)
 {
-	double angle;
-	
+	double	angle;
+
 	angle = 0;
 	if (keysym == XK_z || keysym == XK_c)
 		angle = 15.0;
-
-	if (keysym == XK_x || keysym == XK_v) 
+	if (keysym == XK_x || keysym == XK_v)
 		angle = -15.0;
-	if(keysym == XK_z || keysym == XK_x)
+	if (keysym == XK_z || keysym == XK_x)
 	{
 		if (data->cy)
 			rotate_cy(data->cy, angle);
 	}
-	if(keysym == XK_c || keysym == XK_v)
+	if (keysym == XK_c || keysym == XK_v)
 	{
 		if (data->pl)
 			rotate_pl(data->pl, angle);

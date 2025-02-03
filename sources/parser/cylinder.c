@@ -12,7 +12,7 @@
 
 #include "../../includes/minirt.h"
 
-static void init_qdtc(t_cylinder	*new_node)
+static void	init_qdtc(t_cylinder	*new_node)
 {
 	new_node->qdtc.b = 0;
 	new_node->qdtc.c = 0;
@@ -29,8 +29,6 @@ static void	set_node2(t_cylinder *node, char **array)
 	init_qdtc (node);
 }
 
-//no importa el orden de aparicion por lo que por practicidad, cada nuevo elemento se a;ade adelante en la linked list,
-//esto me permite que en set_node2, pueda directamente asignar los elementos faltantes sin tener que mover el puntero del head
 static void	set_node(t_data *data, char **rgb, char **origin, char **norm)
 {
 	t_cylinder	*node;
@@ -105,6 +103,3 @@ void	parse_cylinder(char **array, t_data *data)
 	ft_free_array(origin);
 	ft_free_array(normalized);
 }
-
-//si no tuivieramos una estructura general t_data que incluya t_cylinder, el primer parametro tendria que haber sido t_cylinder *node
-//y eso me hubeira obligado a declarar en parse_sphere la variable

@@ -16,16 +16,17 @@
 //the discriminant is the expression inside the square root:
 //√(B^2 - 4AC)]
 //if (B^2 - 4AC) < 0 it means the rays doesn't intercept the sphere
-static float calculate_distance_2(float diameter, t_quadratic *qdtc, t_vector l)
+static float	calculate_distance_2(float diameter,
+		t_quadratic *qdtc, t_vector l)
 {
-	float    pow_b;
-	
+	float	pow_b;
+
 	qdtc->radius = (diameter / 2.0f);
 	pow_b = (qdtc->b * qdtc->b);
 	qdtc->c = (ft_dot(&l, &l) - (qdtc->radius * qdtc->radius));
 	if ((pow_b - 4.0f * qdtc->a * qdtc->c) < 0)
 		return (INFINITY);
-	return(sqrt(pow_b - 4.0f * qdtc->a * qdtc->c));
+	return (sqrt(pow_b - 4.0f * qdtc->a * qdtc->c));
 }
 
 //t is the intersection distance between the ray and the sphere
@@ -33,7 +34,7 @@ static float calculate_distance_2(float diameter, t_quadratic *qdtc, t_vector l)
 //t = [-B ± √(B^2 - 4AC)] / [2*A]
 //where:
 //A = d * d
-//B = 2 * L * d 
+//B = 2 * L * d
 //C = L * L - r^2
 //where:
 //L = ray's origin - sphere's center (vector)
@@ -43,22 +44,22 @@ static float calculate_distance_2(float diameter, t_quadratic *qdtc, t_vector l)
 //if temp_d is NOT >= 0, there is no interesection between the ray and the sp
 static float	calculate_distance(t_sphere *sphere, t_ray ray)
 {
-	t_vector    l;
-	t_quadratic qdtc;
-	
+	t_vector	l;
+	t_quadratic	qdtc;
+
 	qdtc = sphere->qdtc;
 	l = ft_subtraction(&ray.origin, &sphere->origin);
 	qdtc.a = ft_dot(&ray.direction, &ray.direction);
 	qdtc.b = 2.0 * ft_dot(&l, &ray.direction);
 	qdtc.square = calculate_distance_2(sphere->diameter, &qdtc, l);
-	if(qdtc.square == INFINITY)
+	if (qdtc.square == INFINITY)
 		return (INFINITY);
 	qdtc.dist1 = (-qdtc.b + qdtc.square) / (2.0f * qdtc.a);
 	qdtc.dist2 = (-qdtc.b - qdtc.square) / (2.0f * qdtc.a);
-	if(qdtc.dist1 >= 0 && (qdtc.dist2 <= 0 || qdtc.dist1 < qdtc.dist2))
-		return(qdtc.dist1);
+	if (qdtc.dist1 >= 0 && (qdtc.dist2 <= 0 || qdtc.dist1 < qdtc.dist2))
+		return (qdtc.dist1);
 	else if (qdtc.dist2 >= 0)
-		return(qdtc.dist2);
+		return (qdtc.dist2);
 	else
 		return (INFINITY);
 }

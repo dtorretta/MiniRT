@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: miguandr <miguandr@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 18:07:23 by dtorrett          #+#    #+#             */
-/*   Updated: 2024/05/28 18:55:22 by marvin           ###   ########.fr       */
+/*   Updated: 2025/02/03 16:21:18 by miguandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-//If we have the string ababaaaMy name is Simonbbaaabbad and our set is ab, we'll get this result out of the ft_strtrim() function : My name is Simon.
-//We removed every a and b from the start and the end of s1, without touching at the a in the middle of s1.
+//If we have the string ababaaaMy name is Simonbbaaabbad
+//and our set is ab, we'll get this result out of the
+//ft_strtrim() function : My name is Simon.
+//We removed every a and b from the start and the end of s1,
+//without touching at the a in the middle of s1.
 
 char	*ft_strtrim(char const *s1, char const *set)
 {

@@ -12,7 +12,7 @@
 
 #include "../../includes/minirt.h"
 
-static void init_qdtc(t_sphere	*new_node)
+static void	init_qdtc(t_sphere	*new_node)
 {
 	new_node->qdtc.b = 0;
 	new_node->qdtc.c = 0;
@@ -82,7 +82,6 @@ void	parse_sphere(char **array, t_data *data)
 	if (check_vectors(origin, array, 0))
 	{
 		ft_free_array(rgb);
-		//ft_free_array(array); Migue: se libera en check_vectors
 		handle_error(data, 7);
 	}
 	set_node(data, array, rgb, origin);

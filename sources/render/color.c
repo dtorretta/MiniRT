@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: miguandr <miguandr@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 15:21:26 by miguandr          #+#    #+#             */
-/*   Updated: 2024/12/03 00:38:40 by marvin           ###   ########.fr       */
+/*   Updated: 2025/02/03 16:56:08 by miguandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ static t_color	calculate_gradient(t_color base_color,
 {
 	t_color	result;
 
-	result.r = (int)(base_color.r * (diffuse + ambient.r / 255.0f)); //agregue parentesis y / 255.0f
-	result.g = (int)(base_color.g * (diffuse + ambient.g / 255.0f)); //agregue parentesis y / 255.0f
-	result.b = (int)(base_color.b * (diffuse + ambient.b / 255.0f)); //agregue parentesis y / 255.0f
+	result.r = (int)(base_color.r * (diffuse + ambient.r / 255.0f));
+	result.g = (int)(base_color.g * (diffuse + ambient.g / 255.0f));
+	result.b = (int)(base_color.b * (diffuse + ambient.b / 255.0f));
 	result.r = fminf(result.r, 255);
 	result.g = fminf(result.g, 255);
 	result.b = fminf(result.b, 255);
@@ -133,7 +133,8 @@ void	generate_pixel_color(t_data *data, int x, int y, t_figure figure)
 	ambient_color.r += (int)(data->amb->color.r * data->amb->ratio);
 	ambient_color.g += (int)(data->amb->color.g * data->amb->ratio);
 	ambient_color.b += (int)(data->amb->color.b * data->amb->ratio);
-	if (!check_shadow(data, &figure.intersection, &figure.normal, &light_direction))
+	if (!check_shadow(data, &figure.intersection,
+			&figure.normal, &light_direction))
 		diffuse_light = fmaxf(0.0f, ft_dot(&figure.normal, &light_direction));
 	final_color = get_object_color(figure, diffuse_light, ambient_color);
 	trgb = create_color(255, final_color.r, final_color.g, final_color.b);

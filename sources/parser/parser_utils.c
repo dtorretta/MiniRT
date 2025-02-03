@@ -30,8 +30,6 @@ int	check_color(char **rgb)
 	return (0);
 }
 
-//only can be 3 coordinates (x,y,z)
-//Migue: agregue otro char** para poder liberar todos los arrays necesarios en caso de que los parametros fallen
 int	check_vectors(char **xyz, char **to_free, int flag)
 {
 	if (!xyz[0] || !xyz[1] || !xyz[2] || xyz[3])

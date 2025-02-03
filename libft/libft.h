@@ -6,7 +6,7 @@
 /*   By: miguandr <miguandr@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:37:08 by dtorrett          #+#    #+#             */
-/*   Updated: 2024/11/04 17:48:46 by miguandr         ###   ########.fr       */
+/*   Updated: 2025/02/03 16:24:22 by miguandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ char				*ft_strjoin_2(char *s1, const char *s2);
 char				*ft_strdup(const char *s);
 
 // MY CREATIONS //
-double              ft_atof(char *nptr);
-void                ft_free_array(char **array);
-int                 ft_iswhitespace(char c);
+double				ft_atof(char *nptr);
+void				ft_free_array(char **array);
+int					ft_iswhitespace(char c);
 
 #endif

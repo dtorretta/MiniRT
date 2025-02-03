@@ -63,7 +63,8 @@ int	parser(char *file, t_data *data)
 	if (fd < 0)
 		handle_error(data, 0);
 	read_lines(fd, data);
-	if (data->amb->q > 1 || data->light->q > 1 || data->cam->q > 1 || data->amb->q < 0 || data->light->q < 0 || data->cam->q < 0)
+	if (data->amb->q > 1 || data->light->q > 1 || data->cam->q > 1
+		|| data->amb->q < 0 || data->light->q < 0 || data->cam->q < 0)
 	{
 		close (fd);
 		handle_error(data, 2);

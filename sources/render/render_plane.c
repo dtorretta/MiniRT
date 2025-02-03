@@ -45,7 +45,6 @@ static void	closest_plane(t_figure *closest, t_ray ray)
 	plane = closest->plane;
 	while (plane)
 	{
-		//closest->normal = ft_normalize (&plane->normal); //para mi la funcion a la que llama en este punto es redundante.
 		temp_distance = calculate_distance (plane, ray);
 		if (temp_distance >= 0 && temp_distance < closest->distance)
 		{
@@ -75,14 +74,3 @@ t_figure	render_plane(t_data *data, t_ray ray)
 	closest_plane(&closest, ray);
 	return (closest);
 }
-
-/*
-notas para Dani:
-t_figure *closest = es necesario que sea puntero porque a lo largo de este file voy cambiando sus valores
-t_ray ray = no necesita ser puntero ya que no le voy a cambiar el valor y es una estrucutra peque;a
-t_plane *plane = necesia ser puntero porque lo que estoy haciendo es apuntar al head
-
-
-Si no añades f y usas 2.0 (que es de doble precisión), es posible que, dependiendo de cómo esté definida la variable diameter, haya una conversión implícita que haga que el resultado de la división se calcule con doble precisión (64 bits) en lugar de precisión simple (32 bits).
-
-*/

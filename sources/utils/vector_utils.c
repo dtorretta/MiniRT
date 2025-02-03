@@ -32,9 +32,7 @@ t_vector	ft_subtraction(t_vector *a, t_vector *b)
 	return (result);
 }
 
-//el producto cruzado de dos vectores en el plano da el vector normal al plano
-//el vector nomal al plano es perpendicular al plano y define su otientacion en el espacio
-t_vector	ft_cross(t_vector *a, t_vector *b) //la estamos usando??
+t_vector	ft_cross(t_vector *a, t_vector *b)
 {
 	t_vector	result;
 
@@ -44,7 +42,6 @@ t_vector	ft_cross(t_vector *a, t_vector *b) //la estamos usando??
 	return (result);
 }
 
-//funcion to calculate the scalar of 2 vector
 float	ft_dot(t_vector *a, t_vector *b)
 {
 	float	result;

@@ -12,7 +12,6 @@
 
 #include "../includes/minirt.h"
 
-
 //chequeo de si el argv[1] que es el nombre del file, sea .rt. sino
 //ft_strncmp returns 1 if coincidence
 int	check_extension(char *file)
@@ -25,7 +24,6 @@ int	check_extension(char *file)
 
 void	init_data(t_data *data)
 {
-
 	data->sp = NULL;
 	data->pl = NULL;
 	data->cy = NULL;

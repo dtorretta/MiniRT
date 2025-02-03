@@ -41,10 +41,10 @@ typedef struct s_quadratic
 	float		a;
 	float		b;
 	float		c;
-	float       dist1;
-	float       dist2;
-	float       radius;
-	float       square;
+	float		dist1;
+	float		dist2;
+	float		radius;
+	float		square;
 }				t_quadratic;
 
 /*Color Structure*/
@@ -86,7 +86,7 @@ typedef struct s_camera
 	float		fov;
 	float		focal_length;
 	t_vector	origin;
-	t_vector	aim; //Migue: al final le puse a direction 'aim' para diferenciarlo un poco
+	t_vector	aim;
 	t_vector	right;
 	t_vector	up;
 	t_vector	pixel_delta_x;
@@ -101,7 +101,7 @@ typedef struct s_sphere
 	t_color			color;
 	float			diameter;
 	struct s_sphere	*next;
-	t_quadratic     qdtc;
+	t_quadratic		qdtc;
 }					t_sphere;
 
 /*Plane Structure*/
@@ -122,8 +122,8 @@ typedef struct s_cylinder
 	float				height;
 	t_color				color;
 	struct s_cylinder	*next;
-	bool		        cy_cap;
-	t_quadratic         qdtc;
+	bool				cy_cap;
+	t_quadratic			qdtc;
 }					t_cylinder;
 
 /*MLX Structure*/
@@ -146,7 +146,6 @@ typedef struct s_figure
 	t_sphere	*sphere;
 	t_plane		*plane;
 	t_cylinder	*cylinder;
-	int			cylinder_cap; //borrar
 }				t_figure;
 
 typedef struct s_ray
@@ -165,8 +164,7 @@ typedef struct s_data
 	t_sphere	*sp;
 	t_plane		*pl;
 	t_cylinder	*cy;
-	t_quadratic  *qdtc;
-	//t_figure    *figure;
+	t_quadratic	*qdtc;
 }					t_data;
 
 /*Error Funtions*/
@@ -188,19 +186,18 @@ int			check_vectors(char **xyz, char **to_free, int flag);
 
 /*Render functions*/
 void		render(t_data *data);
-void	    render_scene(t_data *data);
-int         key_handle (int keysym, t_data *data);
-int         mouse_handle(int button, int x, int y, t_data *data);
+void		render_scene(t_data *data);
+int			key_handle(int keysym, t_data *data);
+int			mouse_handle(int button, int x, int y, t_data *data);
 int			mouse_exit(t_data *data);
 int			keyboard_exit(int keysym, t_data *data);
 void		init_camera(t_camera *camera);
 
 /*Events Utils*/
-void        move_objects(int keysym, t_data *data);
-void        move_light(int keysym, t_data *data);
-void        move_camera(int keysym, t_data *data);
-void        rotate_objects(int keysym, t_data *data);
-
+void		move_objects(int keysym, t_data *data);
+void		move_light(int keysym, t_data *data);
+void		move_camera(int keysym, t_data *data);
+void		rotate_objects(int keysym, t_data *data);
 
 /*Color Funtions & Utils*/
 void		generate_pixel_color(t_data *data, int x, int y, t_figure figure);
@@ -211,8 +208,9 @@ int			check_shadow(t_data *data, t_vector *point,
 t_figure	render_plane(t_data *data, t_ray ray);
 t_figure	render_sphere(t_data *data, t_ray ray);
 t_figure	render_cylinder(t_data *data, t_ray ray);
-float       cap_distance(t_cylinder *cylinder, t_ray ray, t_quadratic *qdtc, float closest);
-int         check_height(t_cylinder *cy, t_ray ray, float dist);
+float		cap_distance(t_cylinder *cylinder, t_ray ray,
+				t_quadratic *qdtc, float closest);
+int			check_height(t_cylinder *cy, t_ray ray, float dist);
 
 /*Vector Utils*/
 t_vector	ft_addition(t_vector *a, t_vector *b);
@@ -227,9 +225,7 @@ t_vector	ft_perpendicular(t_vector *a, t_vector *b);
 /*Utils Functions*/
 void		normalize_whitespace(char *str);
 void		free_memory(t_data *data);
-void        print_menu(void);
-void        clear_image(t_data *data);
-
-
+void		print_menu(void);
+void		clear_image(t_data *data);
 
 #endif

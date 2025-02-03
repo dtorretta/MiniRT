@@ -12,7 +12,7 @@
 
 #include "../../includes/minirt.h"
 
-void    move_camera(int keysym, t_data *data) 
+void	move_camera(int keysym, t_data *data)
 {
 	if (keysym == XK_w)
 		data->cam->origin.y -= 0.1;
@@ -24,7 +24,7 @@ void    move_camera(int keysym, t_data *data)
 		data->cam->origin.x -= 0.1;
 }
 
-void    move_light(int keysym, t_data *data) 
+void	move_light(int keysym, t_data *data)
 {
 	if (keysym == XK_i)
 		data->light->origin.y += 1;
@@ -40,10 +40,12 @@ void    move_light(int keysym, t_data *data)
 		data->light->origin.z -= 1;
 }
 
-static void move_sp(t_sphere *spheres, double dx, double dy, double dz) 
+static void	move_sp(t_sphere *spheres, double dx, double dy, double dz)
 {
-	t_sphere *current = spheres;
-	while (current) 
+	t_sphere	*current;
+
+	current = spheres;
+	while (current)
 	{
 		current->origin.x += dx;
 		current->origin.y += dy;
@@ -52,10 +54,12 @@ static void move_sp(t_sphere *spheres, double dx, double dy, double dz)
 	}
 }
 
-static void move_cy(t_cylinder *cylinders, double dx, double dy, double dz) 
+static void	move_cy(t_cylinder *cylinders, double dx, double dy, double dz)
 {
-	t_cylinder *current = cylinders;
-	while (current) 
+	t_cylinder	*current;
+
+	current = cylinders;
+	while (current)
 	{
 		current->origin.x += dx;
 		current->origin.y += dy;
@@ -64,18 +68,18 @@ static void move_cy(t_cylinder *cylinders, double dx, double dy, double dz)
 	}
 }
 
-void    move_objects(int keysym, t_data *data)
+void	move_objects(int keysym, t_data *data)
 {
-	double dx;
-	double dy;
-	double dz;
-	
+	double	dx;
+	double	dy;
+	double	dz;
+
 	dx = 0;
 	dy = 0;
 	dz = 0;
 	if (keysym == XK_Up || keysym == XK_t)
 		dy = 1;
-	else if (keysym == XK_Down || keysym == XK_g) 
+	else if (keysym == XK_Down || keysym == XK_g)
 		dy = -1;
 	else if (keysym == XK_Right || keysym == XK_h)
 		dx = 1;

@@ -12,7 +12,7 @@
 
 #include "../../includes/minirt.h"
 
-void    print_menu(void)
+void	print_menu(void)
 {
 	ft_printf("\n");
 	ft_printf("   ███╗   ███╗██╗███╗   ██╗██╗██████╗ ████████╗     \n");
@@ -32,13 +32,13 @@ void    print_menu(void)
 	ft_printf("|  Press [M] to show menu again                        |\n\n");
 }
 
-void clear_image(t_data *data)
+void	clear_image(t_data *data)
 {
-	int *img_data;
-	int i;
+	int	*img_data;
+	int	i;
 
-	img_data = (int *)mlx_get_data_addr(data->mlx->img, &(data->mlx->bitpp), 
-						&(data->mlx->line_lenght), &(data->mlx->endian));
+	img_data = (int *)mlx_get_data_addr(data->mlx->img, &(data->mlx->bitpp),
+			&(data->mlx->line_lenght), &(data->mlx->endian));
 	i = 0;
 	while (i < WIDTH * HEIGHT)
 	{
@@ -77,6 +77,32 @@ void	normalize_whitespace(char *str)
 	str[j] = '\0';
 }
 
+static void	free_figures(t_data *data)
+{
+	t_plane		*temp_plane;
+	t_cylinder	*temp_cyl;
+	t_sphere	*temp_sphere;
+
+	while (data->pl)
+	{
+		temp_plane = data->pl->next;
+		free(data->pl);
+		data->pl = temp_plane;
+	}
+	while (data->cy)
+	{
+		temp_cyl = data->cy->next;
+		free(data->cy);
+		data->cy = temp_cyl;
+	}
+	while (data->sp)
+	{
+		temp_sphere = data->sp->next;
+		free(data->sp);
+		data->sp = temp_sphere;
+	}
+}
+
 void	free_memory(t_data *data)
 {
 	if (!data)
@@ -84,7 +110,7 @@ void	free_memory(t_data *data)
 	free(data->amb);
 	free(data->cam);
 	free(data->light);
-	if(data->qdtc)
+	if (data->qdtc)
 		free(data->qdtc);
 	if (data->mlx)
 	{
@@ -97,33 +123,6 @@ void	free_memory(t_data *data)
 		free(data->mlx->mlx);
 		free(data->mlx);
 	}
-	if(data->pl)
-	{
-		while(data->pl)
-		{
-			t_plane *temp = data->pl->next;
-			free(data->pl);
-			data->pl =  temp;
-		}
-	}
-	if(data->cy)
-	{
-		while(data->cy)
-		{
-			t_cylinder *temp = data->cy->next;
-			free(data->cy);
-			data->cy =  temp;
-		}
-	}
-	if(data->sp)
-	{
-		while(data->sp)
-		{
-			t_sphere *temp = data->sp->next;
-			free(data->sp);
-			data->sp =  temp;
-		}
-	}
-
+	free_figures(data);
 	free(data);
 }

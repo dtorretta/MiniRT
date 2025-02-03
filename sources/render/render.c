@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: miguandr <miguandr@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:38:45 by miguandr          #+#    #+#             */
-/*   Updated: 2025/01/14 14:49:12 by marvin           ###   ########.fr       */
+/*   Updated: 2025/02/03 16:45:52 by miguandr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_vector	calculate_ray_direction(t_data *data, int x, int y)
 	t_vector	pixel_center;
 	t_vector	scaled_x;
 	t_vector	scaled_y;
-	t_vector    ray_direction;
+	t_vector	ray_direction;
 
 	scaled_x = ft_scale(&data->cam->pixel_delta_x, (float)x);
 	scaled_y = ft_scale(&data->cam->pixel_delta_y, (float)y);
@@ -27,7 +27,6 @@ static t_vector	calculate_ray_direction(t_data *data, int x, int y)
 	ray_direction = ft_normalize(&ray_direction);
 	return (ray_direction);
 }
-
 
 //closest will be the first figure the ray impact
 //if there is no figure (distance = INFINITY), there will be no color (black)
@@ -56,8 +55,6 @@ static void	trace_ray_for_pixel(int x, int y, t_data *data)
 		generate_pixel_color(data, x, y, closest);
 }
 
-
-
 void	render_scene(t_data *data)
 {
 	int	x;
@@ -75,7 +72,8 @@ void	render_scene(t_data *data)
 		}
 		x++;
 	}
-	mlx_put_image_to_window(data->mlx->mlx, data->mlx->window, data->mlx->img, 0, 0);
+	mlx_put_image_to_window(data->mlx->mlx,
+		data->mlx->window, data->mlx->img, 0, 0);
 }
 
 static void	init_mlx(t_data *data)
@@ -104,7 +102,8 @@ void	render(t_data *data)
 	ft_putendl_fd("Render done.", 1);
 	mlx_key_hook(data->mlx->window, keyboard_exit, data);
 	mlx_hook(data->mlx->window, KeyPress, KeyPressMask, key_handle, data);
-	mlx_hook(data->mlx->window, ButtonPress, ButtonPressMask, mouse_handle, data);
+	mlx_hook(data->mlx->window, ButtonPress,
+		ButtonPressMask, mouse_handle, data);
 	mlx_hook(data->mlx->window, FINISH_EVENT, 0, mouse_exit, data);
 	mlx_loop(data->mlx->mlx);
 }

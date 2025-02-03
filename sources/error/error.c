@@ -29,12 +29,12 @@ int	handle_error(t_data *data, int error)
 		"Error: wrong camera's parameters\n", // 10
 		"Error: invalid camera FOV\n", // 11
 	};
+
 	message = error_message[error];
 	ft_putstr_fd(message, 2);
 	free_memory(data);
 	exit(EXIT_FAILURE);
 }
-
 
 int	handle_error2(t_data *data, int error)
 {
@@ -51,4 +51,3 @@ int	handle_error2(t_data *data, int error)
 	free_memory(data);
 	exit(EXIT_FAILURE);
 }
-
