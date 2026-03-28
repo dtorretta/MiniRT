@@ -3,7 +3,7 @@ NAME = miniRT
 
 # Compiler and Flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
 # Minilibx
 MLX_DIR = minilibx/

@@ -49,7 +49,7 @@ int	key_handle(int keysym, t_data *data)
 	if (keysym == XK_w || keysym == XK_s || keysym == XK_a || keysym == XK_d)
 		move_camera(keysym, data);
 	if (keysym == XK_Up || keysym == XK_Down || keysym == XK_Right
-		|| keysym == XK_Left || XK_KP_Add || XK_KP_Subtract)
+		|| keysym == XK_Left)
 		move_objects(keysym, data);
 	if (keysym == XK_z || keysym == XK_x || keysym == XK_c || keysym == XK_v)
 		rotate_objects(keysym, data);

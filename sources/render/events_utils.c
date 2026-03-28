@@ -85,10 +85,6 @@ void	move_objects(int keysym, t_data *data)
 		dx = 1;
 	else if (keysym == XK_Left || keysym == XK_f)
 		dx = -1;
-	else if (keysym == XK_KP_Add)
-		dz = 1;
-	else if (keysym == XK_KP_Subtract)
-		dz = -1;
 	if (data->sp)
 		move_sp(data->sp, dx, dy, dz);
 	if (data->cy)

@@ -24,7 +24,7 @@ void	print_menu(void)
 	ft_printf("|  Press [ESC] key to exit                             |\n");
 	ft_printf("|  Press [W] [S] [A] or [D] to move the camera         |\n");
 	ft_printf("|  Press [I] [K] [J] [L] [O] or [P] to move the light  |\n");
-	ft_printf("|  Press [▲] [▼] [◄] [►] [+] or [-] to move objects    |\n");
+	ft_printf("|  Press [▲] [▼] [◄] [►] to move objects               |\n");
 	ft_printf("|  Press [C] or [V] to spin the planes                 |\n");
 	ft_printf("|  Press [Z] or [X] to spin other objects              |\n");
 	ft_printf("|  Press [1] or [2] to resize objects                  |\n");
